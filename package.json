@@ -103,5 +103,13 @@
       "text",
       "html"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DubstepJS/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DubstepJS/core/issues"
+  },
+  "homepage": "https://github.com/DubstepJS/core#readme"
 }
