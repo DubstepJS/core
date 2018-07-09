@@ -1,0 +1,107 @@
+{
+  "name": "@dubstep/core",
+  "version": "0.0.1",
+  "description": "A step runner for scaffolders",
+  "author": "Leo Horie",
+  "license": "MIT",
+  "main": "dist/core/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "upgrade": "yarn upgrade",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "build": "babel src -d dist -q && eslint . --fix",
+    "test": "jest",
+    "cover": "jest --coverage",
+    "flow": "flow check || true",
+    "prepublish": "babel src -d dist -s"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "flow": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
+  },
+  "dependencies": {
+    "@babel/generator": "^7.0.0-beta.51",
+    "@babel/parser": "^7.0.0-beta.51",
+    "@babel/traverse": "^7.0.0-beta.51",
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "execa": "^0.10.0",
+    "flow-coverage-report": "^0.5.0",
+    "fs-extra": "^6.0.1",
+    "prettier": "^1.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0-beta.51",
+    "@babel/core": "7.0.0-beta.51",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.52",
+    "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.51",
+    "@babel/preset-flow": "7.0.0-beta.51",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^8.0.1",
+    "babel-jest": "^23.0.1",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.74.0",
+    "jest": "^23.1.0",
+    "npm-watch": "^0.3.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-flow"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs",
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "prettier",
+      "prettier/flowtype"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "trailingComma": "all",
+          "bracketSpacing": false
+        }
+      ]
+    }
+  },
+  "jest": {
+    "testRegex": "src/.*?.test.js"
+  },
+  "flow-coverage-report": {
+    "includeGlob": [
+      "src/**/*.js"
+    ],
+    "type": [
+      "text",
+      "html"
+    ]
+  }
+}
