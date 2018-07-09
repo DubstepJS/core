@@ -4,7 +4,7 @@ A batteries-included step runner library, suitable for creating migration toolin
 
 License: MIT
 
-[Installation](#installation) | [Usage](#usage) | [API](#api) | [Recipes](#recipes) | [Motivation](#Motivation)
+[Installation](#installation) | [Usage](#usage) | [API](#api) | [Recipes](#recipes) | [Motivation](#motivation)
 
 ---
 
