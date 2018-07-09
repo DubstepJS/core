@@ -15,7 +15,7 @@
     "test": "jest",
     "cover": "jest --coverage",
     "flow": "flow check || true",
-    "prepublish": "babel src -d dist -s"
+    "prepare": "babel src -d dist -s"
   },
   "watch": {
     "build": {
