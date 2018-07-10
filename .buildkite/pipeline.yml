@@ -1,5 +1,8 @@
 steps:
   - name: ':docker: :package:'
+    plugins:
+      'docker-compose':
+        build: dubstep-core
   - command: yarn test
     name: ':test:'
     plugins:
