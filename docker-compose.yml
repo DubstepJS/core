@@ -1,0 +1,18 @@
+version: '3'
+services:
+  dubstep-core:
+    build: .
+    volumes:
+      - .:/dubstep-core
+      - /dubstep-core/node_modules/
+      - /dubstep-core/dist/
+    environment:
+      - CODECOV_TOKEN
+      - CI=true
+      - BUILDKITE
+      - BUILDKITE_BRANCH
+      - BUILDKITE_BUILD_NUMBER
+      - BUILDKITE_JOB_ID
+      - BUILDKITE_BUILD_URL
+      - BUILDKITE_PROJECT_SLUG
+      - BUILDKITE_COMMIT

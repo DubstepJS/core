@@ -1,11 +1,8 @@
 /* @flow */
 
-import execa from 'execa';
+import fs from 'fs';
+import * as git from 'isomorphic-git';
 
 export const gitClone = async (repo: string, target: string) => {
-  await execa.shell(`
-    if [ ! -d "${target}" ] ; then
-      git clone ${repo} ${target}
-    fi
-  `);
+  await git.clone({fs, url: repo, dir: target});
 };

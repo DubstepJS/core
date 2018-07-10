@@ -1,11 +1,11 @@
-import execa from 'execa';
+import * as git from 'isomorphic-git';
 import {gitCommit} from './git-commit.js';
 
 test('gitCommit', async () => {
-  const spy = jest.fn();
-  jest.spyOn(execa, 'shell').mockImplementation(spy);
+  const add = jest.spyOn(git, 'add');
+  const commit = jest.spyOn(git, 'commit');
 
-  await gitCommit('');
-  expect(spy.mock.calls[0][0]).toEqual(expect.stringMatching('git add'));
-  expect(spy.mock.calls[1][0]).toEqual(expect.stringMatching('git commit'));
+  await expect(gitCommit('test commit')).resolves.toEqual(undefined);
+  expect(add).toHaveBeenCalled();
+  expect(commit).toHaveBeenCalled();
 });

@@ -1,0 +1,12 @@
+steps:
+  - name: ':docker: :package:'
+  - command: yarn test
+    name: ':test:'
+    plugins:
+      'docker-compose':
+        run: dubstep-core
+  - command: yarn flow
+    name: ':flowtype:'
+    plugins:
+      'docker-compose':
+        run: dubstep-core
