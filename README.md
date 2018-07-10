@@ -4,6 +4,8 @@
 
 A batteries-included step runner library, suitable for creating migration tooling, codemods, scaffolding CLIs, etc.
 
+Dubstep has utility functions for file system operations, Babel-based codemodding, Git operations and others.
+
 License: MIT
 
 [Installation](#installation) | [Usage](#usage) | [API](#api) | [Recipes](#recipes) | [Motivation](#motivation)
