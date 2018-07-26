@@ -107,6 +107,7 @@ A step consists of a descriptive name and an async function.
 import {StepperError} from '@dubstep/core';
 
 class StepperError extends Error {
+  constructor(error: Error, step: string, index: number),
   step: string,
   index: number,
   message: string,

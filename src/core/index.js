@@ -1,4 +1,26 @@
-/* @flow */
+/*
+Copyright (c) 2018 Uber Technologies, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+@flow
+*/
 
 export type Preset = Array<Step>;
 export type Step = {name: string, step: AsyncFunction};
@@ -27,7 +49,7 @@ export class Stepper {
       await Promise.resolve()
         .then(step)
         .catch(e => {
-          throw new StepperError(e.message, name, from + i);
+          throw new StepperError(e, name, from + i);
         });
       for (const fn of this.progress) {
         fn({index: from + i, total: to - from, step: name});
@@ -47,11 +69,11 @@ export const step = (name: string, step: AsyncFunction): Step => ({name, step});
 export class StepperError extends Error {
   step: string;
   index: number;
-  constructor(message: string, step: string, index: number) {
-    super(message);
+  constructor(error: Error, step: string, index: number) {
+    super(error.message);
+    this.stack = error.stack;
     this.step = step;
     this.index = index;
-    Error.captureStackTrace(this, StepperError);
   }
 }
 
