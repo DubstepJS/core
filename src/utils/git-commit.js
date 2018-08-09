@@ -44,6 +44,7 @@ async function get(path) {
   return git.config({fs, dir: '.', path});
 }
 async function getGlobalConfig() {
-  const file = await readFile(`${process.env.HOME}/.gitconfig`).catch(() => '');
+  const home = process.env.HOME || ''; // make Flow happy
+  const file = await readFile(`${home}/.gitconfig`).catch(() => '');
   return ini.parse(file);
 }
