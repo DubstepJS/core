@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 import fse from 'fs-extra';
 import {withJsonFile} from './with-json-file.js';
+import {writeFile} from './write-file.js';
 
 test('withJsonFile defaults to empty object if it does not exist', async () => {
   expect.assertions(1);
@@ -31,5 +32,12 @@ test('withJsonFile defaults to empty object if it does not exist', async () => {
   await withJsonFile(file, async (data: Object) => {
     expect(data).toEqual({});
   });
+  await fse.remove(file);
+});
+
+test('withJsonFile throws error w/ filename when invalid JSON', async () => {
+  const file = '__json_2__.json';
+  await writeFile(file, '');
+  await expect(withJsonFile(file, () => {})).rejects.toThrow(/__json_2__.json/);
   await fse.remove(file);
 });
