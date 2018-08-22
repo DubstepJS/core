@@ -42,7 +42,7 @@ export const parseJs = (code: string, options: ParserOptions) => {
       'jsx',
       'doExpressions',
       'objectRestSpread',
-      'decorators',
+      ['decorators', {decoratorsBeforeExport: false}],
       'classProperties',
       'classPrivateProperties',
       'classPrivateMethods',
