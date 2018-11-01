@@ -266,6 +266,36 @@ ensureJsImports(parseJs(`import a from 'a';`), `import foo from 'a'`);
 
 A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 
+##### visitJsImport
+
+```js
+import {visitJsImport} from '@dubstep/core';
+
+visitJsImport = (
+  path: NodePath,
+  code: string,
+  handler: (importPath: NodePath, refPaths: Array<NodePath>) => void)
+: void
+```
+
+This function is useful when applying codemods to specific modules which requires modifying the ast surrounding 
+specific modules and their usage. This module works robustly across various styles of importing. For example:
+
+```js
+visitJsImport(
+  parseJs(`
+    import {a} from 'a';
+    a('test')
+    console.log(a);
+  `),
+  `import {a} from 'a';`,
+  (importPath, refPaths) => {
+    // importPath corresponds to the ImportDeclaration from 'a';
+    // refPaths is a list of NodePaths corresponding to the usage of the a variable
+  }
+)
+```
+
 ##### generateJs
 
 ```js
