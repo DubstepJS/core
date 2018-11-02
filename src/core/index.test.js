@@ -22,7 +22,10 @@ THE SOFTWARE.
 @flow
 */
 
-import {Stepper, step, StepperError} from './index.js';
+import * as API from './index.js';
+import markdown from 'markdown-it';
+import fs from 'fs';
+const {Stepper, step, StepperError} = API;
 
 test('test', () => {
   const fn = async () => {};
@@ -64,4 +67,53 @@ test('StepperError', () => {
   const {message, step} = new StepperError(new Error('a'), 'b', 0);
   expect(message).toBe('a');
   expect(step).toBe('b');
+});
+
+test('API', () => {
+  expect(Object.keys(API)).toMatchInlineSnapshot(`
+Array [
+  "Stepper",
+  "step",
+  "StepperError",
+  "createRestorePoint",
+  "ensureJsImports",
+  "exec",
+  "findFiles",
+  "generateJs",
+  "getRestorePoint",
+  "gitClone",
+  "gitCommit",
+  "insertJsAfter",
+  "insertJsBefore",
+  "moveFile",
+  "parseJs",
+  "readFile",
+  "removeFile",
+  "removeJsImports",
+  "replaceJs",
+  "withIgnoreFile",
+  "withJsFile",
+  "withJsonFile",
+  "withTextFile",
+  "writeFile",
+  "withJsFiles",
+]
+`);
+});
+
+// This tests that we have a documentation section for each exposed api
+test('API documentation', () => {
+  const md = markdown();
+  const readme = md.parse(fs.readFileSync('README.md').toString());
+  const headers = readme
+    .filter((token, index) => {
+      return (
+        token.type === 'inline' && readme[index - 1].type === 'heading_open'
+      );
+    })
+    .map(token => token.content);
+  const exposedAPI = Object.keys(API);
+  exposedAPI.forEach(item => {
+    expect(headers).toContain(item);
+  });
 });
