@@ -97,6 +97,7 @@ Array [
   "withTextFile",
   "writeFile",
   "withJsFiles",
+  "visitJsImport",
 ]
 `);
 });
