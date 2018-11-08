@@ -32,15 +32,50 @@ test('removeJsImports', () => {
   expect(generateJs(path).trim()).toEqual('');
 });
 
-test('remove specifiers', () => {
-  const path = parseJs(`import a, {b, c} from 'c';`);
-  removeJsImports(path, `import a, {b} from 'c';`);
-  expect(generateJs(path).trim()).toEqual('import { c } from "c";');
+test('removeJsImports, default import with different named local', () => {
+  const path = parseJs(`import c from 'c';`);
+  removeJsImports(path, `import a from 'c';`);
+  expect(generateJs(path).trim()).toEqual('');
 });
 
-test('remove dependent statements', () => {
+test('removeJsImports, namespace import', () => {
+  const path = parseJs(`import * as c from 'c';`);
+  removeJsImports(path, `import * as b from 'c';`);
+  expect(generateJs(path).trim()).toEqual('');
+});
+
+test('removeJsImports, ', () => {
+  const path = parseJs(`import c, {b} from 'c';`);
+  removeJsImports(path, `import a, {b} from 'c';`);
+  expect(generateJs(path).trim()).toEqual('');
+});
+
+test('removeJsImports specifiers', () => {
+  const path = parseJs(`import a, {b, c} from 'c';`);
+  removeJsImports(path, `import a, {b} from 'c';`);
+  expect(generateJs(path).trim()).toEqual(`import { c } from 'c';`);
+});
+
+test('removeJsImports dependent statements', () => {
   const path = parseJs(
-    `import a, {b} from 'c';foo(a);b.toString();function x(a) {a();}`,
+    `import a, {b as c} from 'c';
+    foo(a);
+    c.toString();
+    function x(a) {
+      a();
+    }`,
+  );
+  removeJsImports(path, `import a, {b} from 'c';`);
+  expect(generateJs(path).trim()).toEqual('function x(a) {\n  a();\n}');
+});
+
+test('removeJsImports namespace dependent statements', () => {
+  const path = parseJs(
+    `import * as a from 'c';
+    foo(a.test());
+    function x(a) {
+      a();
+    }`,
   );
   removeJsImports(path, `import a, {b} from 'c';`);
   expect(generateJs(path).trim()).toEqual('function x(a) {\n  a();\n}');

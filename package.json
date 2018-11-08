@@ -12,7 +12,7 @@
   "scripts": {
     "upgrade": "yarn upgrade",
     "dev": "npm-watch | grep --invert-match nodemon",
-    "build": "babel src -d dist -q && eslint . --fix",
+    "build": "babel src -d dist -q",
     "test": "jest",
     "cover": "jest --coverage",
     "flow": "flow check || true",
