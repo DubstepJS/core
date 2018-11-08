@@ -24,7 +24,8 @@ THE SOFTWARE.
 
 import {parseJs} from './parse-js.js';
 
-export const removeJsImports = (path: NodePath, code: string) => {
+export const removeJsImports = (path: NodePath, code: string): boolean => {
+  let removed = false;
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
@@ -32,22 +33,25 @@ export const removeJsImports = (path: NodePath, code: string) => {
           if (targetPath.node.source.value === obsoletePath.node.source.value) {
             const filtered = targetPath.node.specifiers.filter(specifier => {
               const obsoleteSpecifiers = obsoletePath.node.specifiers;
+              const localName = specifier.local.name;
               const ofSameType = obsoleteSpecifiers.filter(s => {
                 return s.type === specifier.type;
               });
-              if (specifier.type === 'ImportDefaultSpecifier') {
-                const name = specifier.local.name;
-                const match = ofSameType.find(s => name === s.local.name);
-                if (match) remove(path, match.local.name);
-                return !match;
-              } else if (specifier.type === 'ImportSpecifier') {
+              if (specifier.type === 'ImportSpecifier') {
                 const name = specifier.imported.name;
                 const match = ofSameType.find(s => name === s.imported.name);
-                if (match) remove(path, match.local.name);
+                if (match) remove(path, localName);
                 return !match;
+              } else if (ofSameType.length === 1) {
+                remove(path, localName);
+                return false;
+              } else {
+                return true;
               }
-              return false;
             });
+            if (filtered.length !== targetPath.node.specifiers.length) {
+              removed = true;
+            }
             if (filtered.length > 0) targetPath.node.specifiers = filtered;
             else targetPath.remove();
           }
@@ -55,6 +59,7 @@ export const removeJsImports = (path: NodePath, code: string) => {
       });
     },
   });
+  return removed;
 };
 
 function remove(path, name) {
