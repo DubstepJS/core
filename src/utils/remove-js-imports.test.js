@@ -44,10 +44,10 @@ test('removeJsImports, namespace import', () => {
   expect(generateJs(path).trim()).toEqual('');
 });
 
-test('removeJsImports, ', () => {
-  const path = parseJs(`import c, {b} from 'c';`);
-  removeJsImports(path, `import a, {b} from 'c';`);
-  expect(generateJs(path).trim()).toEqual('');
+test('removeJsImports, no match', () => {
+  const path = parseJs(`import b from 'c';`);
+  removeJsImports(path, `import {b} from 'c';`);
+  expect(generateJs(path).trim()).toEqual(`import b from 'c';`);
 });
 
 test('removeJsImports specifiers', () => {
@@ -77,6 +77,6 @@ test('removeJsImports namespace dependent statements', () => {
       a();
     }`,
   );
-  removeJsImports(path, `import a, {b} from 'c';`);
+  removeJsImports(path, `import * as a from 'c';`);
   expect(generateJs(path).trim()).toEqual('function x(a) {\n  a();\n}');
 });

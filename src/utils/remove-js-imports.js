@@ -24,7 +24,8 @@ THE SOFTWARE.
 
 import {parseJs} from './parse-js.js';
 
-export const removeJsImports = (path: NodePath, code: string) => {
+export const removeJsImports = (path: NodePath, code: string): boolean => {
+  let removed = false;
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
@@ -41,11 +42,16 @@ export const removeJsImports = (path: NodePath, code: string) => {
                 const match = ofSameType.find(s => name === s.imported.name);
                 if (match) remove(path, localName);
                 return !match;
-              } else {
+              } else if (ofSameType.length === 1) {
                 remove(path, localName);
                 return false;
+              } else {
+                return true;
               }
             });
+            if (filtered.length !== targetPath.node.specifiers.length) {
+              removed = true;
+            }
             if (filtered.length > 0) targetPath.node.specifiers = filtered;
             else targetPath.remove();
           }
@@ -53,6 +59,7 @@ export const removeJsImports = (path: NodePath, code: string) => {
       });
     },
   });
+  return removed;
 };
 
 function remove(path, name) {
