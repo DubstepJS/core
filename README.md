@@ -1,4 +1,4 @@
-# Dubstep
+.# Dubstep
 
 [![Build status](https://badge.buildkite.com/843d29b4898b20cd38d3a6509875979fbbd43314095540ed6c.svg)](https://buildkite.com/uberopensource/at-dubstep-slash-core)
 
@@ -278,7 +278,7 @@ visitJsImport = (
 : void
 ```
 
-This function is useful when applying codemods to specific modules which requires modifying the ast surrounding 
+This function is useful when applying codemods to specific modules which requires modifying the ast surrounding
 specific modules and their usage. This module works robustly across various styles of importing. For example:
 
 ```js
@@ -293,7 +293,7 @@ visitJsImport(
     // importPath corresponds to the ImportDeclaration from 'a';
     // refPaths is a list of NodePaths corresponding to the usage of the a variable
   }
-)
+);
 ```
 
 ##### generateJs
@@ -545,12 +545,13 @@ If a step in a preset fails, it may be desirable to resume execution of the pres
 
 ```js
 const restoreFile = 'migration-report.json';
-new Stepper([ /* ... */ ]).run({
-  from: await getRestorePoint(restoreFile),
-}).then(
-  () => removeFile(restoreFile),
-  e => createRestorePoint(restoreFile, e),
-);
+new Stepper([
+  /* ... */
+])
+  .run({
+    from: await getRestorePoint(restoreFile),
+  })
+  .then(() => removeFile(restoreFile), e => createRestorePoint(restoreFile, e));
 ```
 
 ### Javascript codemods
@@ -581,11 +582,15 @@ new Stepper([
 // fix-health-path-check.js
 export const fixHealthPathCheck = async ({path}) => {
   const old = '/health';
-  withJsFiles('.', f => f.match(/src\/.*\.js/), path => {
-    replaceJs(path, `ctx.url === '${old}'`, `ctx.path === '${path}'`)
-  });
+  withJsFiles(
+    '.',
+    f => f.match(/src\/.*\.js/),
+    path => {
+      replaceJs(path, `ctx.url === '${old}'`, `ctx.path === '${path}'`);
+    }
+  );
   return old;
-}
+};
 
 // index.js
 import {fixHealthPathCheck} from './fix-health-path-check';
@@ -602,7 +607,7 @@ new Stepper([
   }),
   step('show old', async () => {
     console.log(state.old);
-  })
+  }),
 ]).run();
 ```
 
