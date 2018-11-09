@@ -65,7 +65,7 @@
     "babel-eslint": "9.0.0",
     "babel-jest": "23.4.2",
     "babel-preset-flow": "6.23.0",
-    "flow-bin": "0.80.0",
+    "flow-bin": "0.86.0",
     "jest": "23.5.0",
     "markdown-it": "^8.4.2",
     "npm-watch": "0.3.0"
