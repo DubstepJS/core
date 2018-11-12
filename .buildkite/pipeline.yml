@@ -13,6 +13,13 @@ steps:
         run: dubstep-core
     agents:
       queue: workers
+  - command: yarn lint
+    name: ':eslint:'
+    plugins:
+      'docker-compose':
+        run: dubstep-core
+    agents:
+      queue: workers
   - command: yarn flow
     name: ':flowtype:'
     plugins:
