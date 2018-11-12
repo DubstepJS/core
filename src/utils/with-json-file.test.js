@@ -38,6 +38,10 @@ test('withJsonFile defaults to empty object if it does not exist', async () => {
 test('withJsonFile throws error w/ filename when invalid JSON', async () => {
   const file = '__json_2__.json';
   await writeFile(file, '');
-  await expect(withJsonFile(file, () => {})).rejects.toThrow(/__json_2__.json/);
+  await expect(
+    withJsonFile(file, () => {
+      return Promise.resolve();
+    }),
+  ).rejects.toThrow(/__json_2__.json/);
   await fse.remove(file);
 });

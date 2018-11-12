@@ -29,5 +29,5 @@ test('parseJs', async () => {
   const code = 'const a = 1;';
   const path = parseJs(code);
   const generated = generateJs(path);
-  expect(code).toEqual(generated.trim());
+  expect(generated.trim()).toEqual(code);
 });

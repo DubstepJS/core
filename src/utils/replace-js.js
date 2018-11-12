@@ -30,7 +30,7 @@ export const replaceJs = (
   source: string,
   target: string,
   wildcards: Array<string> = [],
-) => {
+): boolean => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
   const node =
@@ -58,15 +58,18 @@ export const replaceJs = (
       }
     },
   });
+  let spreadReplaced = false;
   path.traverse({
     Identifier(identifierPath) {
       const args = spreads[identifierPath.node.name];
       const parent = identifierPath.parentPath;
       if (args !== undefined && parent.node.type === 'SpreadElement') {
+        spreadReplaced = true;
         parent.replaceWithMultiple(args);
       }
     },
   });
+  return matched.size > 0 || spreadReplaced;
 };
 
 function match(a, b, interpolations = {}, spreads = {}) {

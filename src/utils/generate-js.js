@@ -32,11 +32,12 @@ export type GenerateJsOptions = ?{
 };
 
 export const generateJs = (path: NodePath, options: GenerateJsOptions) => {
-  const formatter = options ? options.formatter : 'prettier';
+  const formatter = options ? options.formatter : 'babel';
   const formatterOptions = options ? options.formatterOptions : {};
   switch (formatter) {
     case 'babel':
-      return generate(path.node, formatterOptions);
+      const generated = generate(path.parent, formatterOptions);
+      return generated.code;
     case 'prettier':
     default:
       // placeholder is needed to prevent prettier from short-circuiting before the parser runs

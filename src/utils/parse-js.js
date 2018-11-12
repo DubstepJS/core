@@ -26,6 +26,7 @@ import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
 import {parse} from '@babel/parser';
 import {readFile} from './read-file.js';
+import generate from '@babel/generator';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 
@@ -65,7 +66,7 @@ export const parseJs = (code: string, options: ParserOptions) => {
 
   // ensure `path` has correct type to keep flow.js happy
   // we always override the dummy NodePath with the `enter` visitor
-  let path = new NodePath();
+  let path = null;
   traverse(ast, {
     enter(p) {
       if (p.isProgram()) path = p;
