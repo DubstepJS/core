@@ -31,7 +31,7 @@ import {
 export const visitJsImport = (
   path: NodePath,
   source: string,
-  handler: (path: NodePath, refPaths: Array<NodePath>) => void,
+  handler: (path: NodePath, refPaths: Array<NodePath>) => Boolean | void,
 ) => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
@@ -50,6 +50,7 @@ export const visitJsImport = (
   }
   const sourceSpecifier = specifiers[0];
   const localName = specifiers[0].local.name;
+  let hasChange = false;
   path.traverse({
     ImportDeclaration(ipath: NodePath) {
       const sourceName = ipath.get('source').node.value;
@@ -61,25 +62,22 @@ export const visitJsImport = (
         const binding = ipath.scope.bindings[targetName];
         const refPaths = binding ? binding.referencePaths : [];
         if (
-          isImportSpecifier(targetSpecifier) &&
-          isImportSpecifier(sourceSpecifier) &&
-          localName === targetName
+          // specifier case
+          (isImportSpecifier(targetSpecifier) &&
+            isImportSpecifier(sourceSpecifier) &&
+            localName === targetName) ||
+          // namespace import case
+          (isImportNamespaceSpecifier(targetSpecifier) &&
+            isImportNamespaceSpecifier(sourceSpecifier)) ||
+          // default import case
+          (isImportDefaultSpecifier(targetSpecifier) &&
+            isImportDefaultSpecifier(sourceSpecifier))
         ) {
-          return handler(ipath, refPaths);
-        }
-        if (
-          isImportNamespaceSpecifier(targetSpecifier) &&
-          isImportNamespaceSpecifier(sourceSpecifier)
-        ) {
-          return handler(ipath, refPaths);
-        }
-        if (
-          isImportDefaultSpecifier(targetSpecifier) &&
-          isImportDefaultSpecifier(sourceSpecifier)
-        ) {
-          return handler(ipath, refPaths);
+          hasChange = hasChange || handler(ipath, refPaths);
+          return;
         }
       });
     },
   });
+  return hasChange;
 };

@@ -22,7 +22,6 @@ THE SOFTWARE.
 @flow
 */
 
-import traverse from '@babel/traverse';
 import {readFile} from './read-file.js';
 import {writeFile} from './write-file.js';
 import {parseJs} from './parse-js.js';
@@ -32,8 +31,16 @@ export type JsFileMutation = NodePath => void;
 
 export const withJsFile = async (file: string, transform: JsFileMutation) => {
   const code = await readFile(file).catch(() => '');
-  const path = parseJs(code);
-  await transform(path);
-  const generated = generateJs(path);
-  await writeFile(file, generated);
+  try {
+    const program = parseJs(code);
+    const result = await transform(program);
+    if (result === false) {
+      return;
+    }
+    const generated = generateJs(program);
+    await writeFile(file, generated);
+  } catch (e) {
+    console.log(`Failed to handle file: ${file}`);
+    throw e;
+  }
 };
