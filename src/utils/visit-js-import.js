@@ -31,7 +31,7 @@ import {
 export const visitJsImport = (
   path: NodePath,
   source: string,
-  handler: (path: NodePath, refPaths: Array<NodePath>) => Boolean | void,
+  handler: (path: NodePath, refPaths: Array<NodePath>) => Boolean | void
 ) => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
@@ -39,13 +39,13 @@ export const visitJsImport = (
     throw new Error(
       `Expected source with type ImportDeclaration. Received: ${
         sourceNode.type
-      }`,
+      }`
     );
   }
   const specifiers = sourceNode.specifiers;
   if (specifiers.length !== 1) {
     throw new Error(
-      `Expected exactly one import specifier. Received: ${specifiers.length}`,
+      `Expected exactly one import specifier. Received: ${specifiers.length}`
     );
   }
   const sourceSpecifier = specifiers[0];

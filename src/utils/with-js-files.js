@@ -29,7 +29,7 @@ import type {JsFileMutation} from './with-js-file.js';
 export const withJsFiles = async (
   root: string,
   regexp: RegExp,
-  fn: JsFileMutation,
+  fn: JsFileMutation
 ) => {
   const files = await findFiles(root, f => regexp.test(f));
   for (const file of files) {

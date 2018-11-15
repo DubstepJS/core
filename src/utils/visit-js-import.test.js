@@ -38,7 +38,7 @@ test('visitJsImport named', () => {
     expect(refPaths).toHaveLength(2);
   });
   visitJsImport(path, `import {a} from 'c'`, handler);
-  expect(handler).toBeCalledTimes(1);
+  expect(handler).toHaveBeenCalledTimes(1);
 });
 
 test('visitJsImport no references', () => {
@@ -49,7 +49,7 @@ test('visitJsImport no references', () => {
     expect(refPaths).toHaveLength(0);
   });
   visitJsImport(path, `import {a} from 'c'`, handler);
-  expect(handler).toBeCalledTimes(1);
+  expect(handler).toHaveBeenCalledTimes(1);
 });
 
 test('visitJsImport no binding', () => {
@@ -60,7 +60,7 @@ test('visitJsImport no binding', () => {
     expect(refPaths).toHaveLength(0);
   });
   visitJsImport(path, `import {a} from 'c'`, handler);
-  expect(handler).toBeCalledTimes(0);
+  expect(handler).toHaveBeenCalledTimes(0);
 });
 
 test('visitJsImport namespace', () => {
@@ -77,7 +77,7 @@ test('visitJsImport namespace', () => {
     expect(refPaths).toHaveLength(2);
   });
   visitJsImport(path, `import * as b from 'c'`, handler);
-  expect(handler).toBeCalledTimes(1);
+  expect(handler).toHaveBeenCalledTimes(1);
 });
 
 test('visitJsImport default', () => {
@@ -94,7 +94,7 @@ test('visitJsImport default', () => {
     expect(refPaths).toHaveLength(2);
   });
   visitJsImport(path, `import b from 'c'`, handler);
-  expect(handler).toBeCalledTimes(1);
+  expect(handler).toHaveBeenCalledTimes(1);
 });
 
 test('visitJsImport validation', () => {

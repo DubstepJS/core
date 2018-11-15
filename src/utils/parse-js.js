@@ -25,8 +25,7 @@ THE SOFTWARE.
 import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
 import {parse} from '@babel/parser';
-import {readFile} from './read-file.js';
-import generate from '@babel/generator';
+import recast from 'recast';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 
@@ -36,32 +35,38 @@ export const parseJs = (code: string, options: ParserOptions) => {
       ? ['typescript']
       : ['flow', 'flowComments'];
 
-  const ast = parse(code, {
-    sourceType: 'unambiguous',
-    plugins: [
-      ...typeSystem,
-      'jsx',
-      'doExpressions',
-      'objectRestSpread',
-      ['decorators', {decoratorsBeforeExport: false}],
-      'classProperties',
-      'classPrivateProperties',
-      'classPrivateMethods',
-      'exportDefaultFrom',
-      'exportNamespaceFrom',
-      'asyncGenerators',
-      'functionBind',
-      'functionSent',
-      'dynamicImport',
-      'numericSeparator',
-      'optionalChaining',
-      'importMeta',
-      'bigInt',
-      'optionalCatchBinding',
-      'throwExpressions',
-      ['pipelineOperator', {proposal: 'minimal'}],
-      'nullishCoalescingOperator',
-    ],
+  const ast = recast.parse(code, {
+    parser: {
+      parse(source) {
+        return parse(source, {
+          sourceType: 'unambiguous',
+          plugins: [
+            ...typeSystem,
+            'jsx',
+            'doExpressions',
+            'objectRestSpread',
+            ['decorators', {decoratorsBeforeExport: false}],
+            'classProperties',
+            'classPrivateProperties',
+            'classPrivateMethods',
+            'exportDefaultFrom',
+            'exportNamespaceFrom',
+            'asyncGenerators',
+            'functionBind',
+            'functionSent',
+            'dynamicImport',
+            'numericSeparator',
+            'optionalChaining',
+            'importMeta',
+            'bigInt',
+            'optionalCatchBinding',
+            'throwExpressions',
+            ['pipelineOperator', {proposal: 'minimal'}],
+            'nullishCoalescingOperator',
+          ],
+        });
+      },
+    },
   });
 
   // ensure `path` has correct type to keep flow.js happy
