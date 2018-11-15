@@ -301,15 +301,10 @@ visitJsImport(
 ```js
 import {generateJs} from '@dubstep/core';
 
-generateJs = (path: NodePath, options: GenerateJsObject) => string;
-type GenerateJsOptions = ?{
-  formatter: ?('babel' | 'prettier'),
-  formatterOptions: ?Object,
-};
+generateJs = (path: NodePath) => string;
 ```
 
-Converts a Program `NodePath` into a Javascript code string. The default formatter is `prettier`. The `formatterOptions` object should be [prettier options map](https://prettier.io/docs/en/options.html) or a [babel generator options map](https://babeljs.io/docs/en/next/babel-generator.html#options) depending on which `formatter` is specified.
-
+Converts a Program `NodePath` into a Javascript code string.
 A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 
 ##### insertJsAfter

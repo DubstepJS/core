@@ -63,7 +63,7 @@ test('removeJsImports dependent statements', () => {
     c.toString();
     function x(a) {
       a();
-    }`,
+    }`
   );
   removeJsImports(path, `import a, {b} from 'c';`);
   expect(generateJs(path).trim()).toEqual('function x(a) {\n  a();\n}');
@@ -75,7 +75,7 @@ test('removeJsImports namespace dependent statements', () => {
     foo(a.test());
     function x(a) {
       a();
-    }`,
+    }`
   );
   removeJsImports(path, `import * as a from 'c';`);
   expect(generateJs(path).trim()).toEqual('function x(a) {\n  a();\n}');

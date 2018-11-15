@@ -40,6 +40,7 @@ export const withJsFile = async (file: string, transform: JsFileMutation) => {
     const generated = generateJs(program);
     await writeFile(file, generated);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(`Failed to handle file: ${file}`);
     throw e;
   }

@@ -25,6 +25,7 @@ THE SOFTWARE.
 import * as API from './index.js';
 import markdown from 'markdown-it';
 import fs from 'fs';
+
 const {Stepper, step, StepperError} = API;
 
 test('test', () => {

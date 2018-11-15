@@ -22,7 +22,6 @@ THE SOFTWARE.
 @flow
 */
 
-import util from 'util';
 import fse from 'fs-extra';
 import {writeFile} from './write-file.js';
 import {readFile} from './read-file.js';

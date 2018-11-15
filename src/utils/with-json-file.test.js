@@ -41,7 +41,7 @@ test('withJsonFile throws error w/ filename when invalid JSON', async () => {
   await expect(
     withJsonFile(file, () => {
       return Promise.resolve();
-    }),
+    })
   ).rejects.toThrow(/__json_2__.json/);
   await fse.remove(file);
 });

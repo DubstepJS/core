@@ -29,7 +29,7 @@ export const replaceJs = (
   path: NodePath,
   source: string,
   target: string,
-  wildcards: Array<string> = [],
+  wildcards: Array<string> = []
 ): boolean => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];

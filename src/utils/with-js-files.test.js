@@ -22,7 +22,6 @@ THE SOFTWARE.
 @flow
 */
 
-import {parse} from '@babel/parser';
 import fse from 'fs-extra';
 import {writeFile} from './write-file.js';
 import {withJsFiles} from './with-js-files.js';
