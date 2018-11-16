@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
-import {parse} from '@babel/parser';
+import {parse} from 'babylon';
 import recast from 'recast';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
@@ -39,7 +39,9 @@ export const parseJs = (code: string, options: ParserOptions) => {
     parser: {
       parse(source) {
         return parse(source, {
-          sourceType: 'unambiguous',
+          sourceType: 'module',
+          allowImportExportEverywhere: true,
+          allowReturnOutsideFunction: true,
           plugins: [
             ...typeSystem,
             'jsx',
