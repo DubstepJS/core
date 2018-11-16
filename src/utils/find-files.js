@@ -24,6 +24,7 @@ THE SOFTWARE.
 
 import fs from 'fs';
 import util from 'util';
+import path from 'path';
 
 const stat = util.promisify(fs.stat);
 const readDir = util.promisify(fs.readdir);
@@ -36,7 +37,7 @@ export const findFiles = async (root: string, match: string => boolean) => {
     if (stats.isDirectory()) {
       const children = await readDir(root);
       const searches = children.map(child => {
-        return collect(`${root}/${child}`);
+        return collect(path.join(root, child));
       });
       await Promise.all(searches);
     } else {
