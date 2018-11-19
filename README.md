@@ -45,7 +45,7 @@ async function run() {
       gitClone('some-scaffold-template.git', state.name);
     }),
     step('customize', async () => {
-      const files = await findFiles('.', f => /src/.test(f));
+      const files = await findFiles('**/*.js', f => /src/.test(f));
       for (const file of files) {
         withTextFile(file, text => text.replace(/{{name}}/g, state.name));
       }
@@ -128,10 +128,10 @@ A stepper error indicates what step failed. It can be used for resuming executio
 ```js
 import {findFiles} from '@dubstep/core';
 
-findFiles = (root: string, filter: string => boolean) => Promise<Array<string>>;
+findFiles = (glob?: string, filter?: string => boolean) => Promise<Array<string>>;
 ```
 
-Resolves to a list of file names that are descendants of `root` and match the condition from the `filter` function.
+Resolves to a list of file names that match `glob` and match the condition from the `filter` function. Respects .gitignore.
 
 ##### moveFile
 
@@ -196,11 +196,11 @@ See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/mast
 ```js
 import {withJsFiles} from '@dubstep/core';
 
-withJsFiles = (root: string, regexp: RegExp, fn: JsFileMutation) => Promise<void>;
+withJsFiles = (glob: string, fn: JsFileMutation) => Promise<void>;
 type JsFileMutation = NodePath => void;
 ```
 
-Runs `withJsFile` only on files that are descendant of `root` and whose absolute path match `regexp`.
+Runs `withJsFile` only on files that match `glob`. 
 
 See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `NodePath`'s API.
 
