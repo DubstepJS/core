@@ -32,5 +32,6 @@ export const findFiles = async (
     expandDirectories: true,
     gitignore: true,
   });
+  // $FlowFixMe
   return test ? result.filter(s => test(s)) : result;
 };

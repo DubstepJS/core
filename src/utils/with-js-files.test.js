@@ -22,7 +22,7 @@ THE SOFTWARE.
 @flow
 */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {writeFile} from './write-file.js';
 import {withJsFiles} from './with-js-files.js';
 
@@ -32,5 +32,5 @@ test('withJsFiles', async () => {
   await writeFile(file, 'a');
   await withJsFiles('__sugared__/tmp.js', fn);
   expect(fn.mock.calls[0][0].node.type).toBe('Program');
-  await fse.remove('__sugared__');
+  await remove('__sugared__');
 });

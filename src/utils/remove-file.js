@@ -22,10 +22,10 @@ THE SOFTWARE.
 @flow
 */
 
-import fse from 'fs-extra';
+import {remove, pathExists} from 'fs-extra';
 
 export const removeFile = async (name: string) => {
-  if (await fse.pathExists(name)) {
-    await fse.remove(name);
+  if (await pathExists(name)) {
+    await remove(name);
   }
 };

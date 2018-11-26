@@ -22,7 +22,7 @@ THE SOFTWARE.
 @flow
 */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {withJsonFile} from './with-json-file.js';
 import {writeFile} from './write-file.js';
 
@@ -32,7 +32,7 @@ test('withJsonFile defaults to empty object if it does not exist', async () => {
   await withJsonFile(file, async (data: Object) => {
     expect(data).toEqual({});
   });
-  await fse.remove(file);
+  await remove(file);
 });
 
 test('withJsonFile throws error w/ filename when invalid JSON', async () => {
@@ -43,5 +43,5 @@ test('withJsonFile throws error w/ filename when invalid JSON', async () => {
       return Promise.resolve();
     })
   ).rejects.toThrow(/__json_2__.json/);
-  await fse.remove(file);
+  await remove(file);
 });

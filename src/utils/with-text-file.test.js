@@ -22,7 +22,7 @@ THE SOFTWARE.
 @flow
 */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {withTextFile} from './with-text-file.js';
 
 test('withTextFile defaults to empty string if it does not exist', async () => {
@@ -31,5 +31,5 @@ test('withTextFile defaults to empty string if it does not exist', async () => {
   await withTextFile(file, async (data: string) => {
     expect(data).toEqual('');
   });
-  await fse.remove(file);
+  await remove(file);
 });
