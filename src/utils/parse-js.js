@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
-import {parse} from 'babylon';
+import {parse} from '@babel/parser';
 import recast from 'recast';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
@@ -66,6 +66,7 @@ export const parseJs = (code: string, options: ParserOptions) => {
             ['pipelineOperator', {proposal: 'minimal'}],
             'nullishCoalescingOperator',
           ],
+          tokens: true,
         });
       },
     },

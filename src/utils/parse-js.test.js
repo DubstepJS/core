@@ -37,7 +37,10 @@ test('parseJs with jsx', async () => {
     import React from 'react'; 
     function Test() {
       return (
-        <div>Hello World</div>
+        <div>
+          <>Fragment Test</>
+          Hello World
+        </div>
       );
     }
   `;
