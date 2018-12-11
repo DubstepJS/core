@@ -22,28 +22,16 @@ THE SOFTWARE.
 @flow
 */
 
-import fs from 'fs';
-import util from 'util';
+import globby from 'globby';
 
-const stat = util.promisify(fs.stat);
-const readDir = util.promisify(fs.readdir);
-
-export const findFiles = async (root: string, match: string => boolean) => {
-  const files = [];
-
-  async function collect(root) {
-    const stats = await stat(root);
-    if (stats.isDirectory()) {
-      const children = await readDir(root);
-      const searches = children.map(child => {
-        return collect(`${root}/${child}`);
-      });
-      await Promise.all(searches);
-    } else {
-      if (match(root)) files.push(root);
-    }
-  }
-  await collect(root);
-
-  return files;
+export const findFiles = async (
+  glob?: string,
+  test?: (file: string) => boolean
+) => {
+  const result = await globby(glob || '**/*', {
+    expandDirectories: true,
+    gitignore: true,
+  });
+  // $FlowFixMe
+  return test ? result.filter(s => test(s)) : result;
 };

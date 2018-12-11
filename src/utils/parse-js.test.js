@@ -29,5 +29,22 @@ test('parseJs', async () => {
   const code = 'const a = 1;';
   const path = parseJs(code);
   const generated = generateJs(path);
-  expect(generated.trim()).toEqual(code);
+  expect(generated).toEqual(code);
+});
+
+test('parseJs with jsx', async () => {
+  const code = `
+    import React from 'react'; 
+    function Test() {
+      return (
+        <div>
+          <>Fragment Test</>
+          Hello World
+        </div>
+      );
+    }
+  `;
+  const path = parseJs(code);
+  const generated = generateJs(path);
+  expect(generated).toEqual(code);
 });

@@ -39,7 +39,9 @@ export const parseJs = (code: string, options: ParserOptions) => {
     parser: {
       parse(source) {
         return parse(source, {
-          sourceType: 'unambiguous',
+          sourceType: 'module',
+          allowImportExportEverywhere: true,
+          allowReturnOutsideFunction: true,
           plugins: [
             ...typeSystem,
             'jsx',
@@ -64,6 +66,7 @@ export const parseJs = (code: string, options: ParserOptions) => {
             ['pipelineOperator', {proposal: 'minimal'}],
             'nullishCoalescingOperator',
           ],
+          tokens: true,
         });
       },
     },
