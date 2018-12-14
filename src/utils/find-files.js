@@ -26,12 +26,12 @@ import globby from 'globby';
 
 export const findFiles = async (
   glob?: string,
-  test?: (file: string) => boolean
+  check?: (file: string) => boolean
 ) => {
   const result = await globby(glob || '**/*', {
     expandDirectories: true,
     gitignore: true,
   });
   // $FlowFixMe
-  return test ? result.filter(s => test(s)) : result;
+  return check ? result.filter(s => check(s)) : result;
 };
