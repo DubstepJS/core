@@ -47,7 +47,7 @@ export const replaceJs = (
       if (match(path.node, node, interpolations, spreads)) {
         const transformed = template(target, {
           placeholderPattern: new RegExp(
-            wildcards.join('|').replace(/\$/g, '\\$')
+            `^${wildcards.join('|').replace(/\$/g, '\\$')}$`
           ),
         })(interpolations);
         if (Array.isArray(transformed)) {
