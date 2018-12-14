@@ -60,5 +60,3 @@ test('ignore superset', () => {
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = (XXX || c) + d;');
 });
-
-
