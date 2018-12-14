@@ -45,7 +45,11 @@ export const replaceJs = (
     [node.type](path) {
       if (matched.get(node)) return; //prevent traversal if replaced with same code
       if (match(path.node, node, interpolations, spreads)) {
-        const transformed = template(target, {placeholderPattern: false})(interpolations);
+        const transformed = template(target, {
+          placeholderPattern: new RegExp(
+            `^${wildcards.join('|').replace(/\$/g, '\\$')}$`
+          ),
+        })(interpolations);
         if (Array.isArray(transformed)) {
           for (const statement of transformed) {
             if (match(node, statement)) matched.set(node, true);

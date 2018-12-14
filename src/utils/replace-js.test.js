@@ -53,3 +53,12 @@ test('multiple statements with spread wildcard', () => {
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = f(1, 2);\nconst b = 2;');
 });
+
+test('ignore superset', () => {
+  const path = parseJs('const a = XXX * c + d;');
+  replaceJs(path, `XXX * X`, `XXX || X`, ['X']);
+  const generated = generateJs(path);
+  expect(generated.trim()).toEqual('const a = (XXX || c) + d;');
+});
+
+
