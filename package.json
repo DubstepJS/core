@@ -16,7 +16,7 @@
     "test": "jest",
     "lint": "eslint src/",
     "cover": "jest --coverage",
-    "flow": "flow check || true",
+    "flow": "flow check",
     "prepare": "babel src -d dist -s"
   },
   "watch": {
@@ -125,5 +125,8 @@
   "bugs": {
     "url": "https://github.com/DubstepJS/core/issues"
   },
-  "homepage": "https://github.com/DubstepJS/core#readme"
+  "homepage": "https://github.com/DubstepJS/core#readme",
+  "resolutions": {
+    "event-stream": "3.3.5"
+  }
 }
