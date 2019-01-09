@@ -499,10 +499,11 @@ Resolves to the index of the failing step recorded in a restore file.
 ```js
 import {exec} from '@dubstep/core';
 
-exec = (command: string) => Promise<string>;
+exec = (command: string, options: Object) => Promise<string>;
 ```
 
-Runs a CLI command in the shell and resolves to `stdout` output.
+Runs a CLI command in the shell and resolves to `stdout` output. Options provided are passed directly into [execa](https://github.com/sindresorhus/execa#options).
+
 
 ---
 
