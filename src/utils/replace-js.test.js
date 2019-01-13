@@ -28,35 +28,52 @@ import {generateJs} from './generate-js.js';
 
 test('replaceJs', () => {
   const path = parseJs('const a = b * c + d;');
-  replaceJs(path, `b * $VALUE`, `x || $VALUE`, ['$VALUE']);
+  const result = replaceJs(path, `b * $VALUE`, `x || $VALUE`, ['$VALUE']);
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = (x || c) + d;');
+  expect(result).toBeTruthy();
 });
 
 test('replace varargs', () => {
   const path = parseJs('foo.bar(1, 2, 3);');
-  replaceJs(path, `foo.bar(...$ARGS)`, `fooBar(...$ARGS)`, ['$ARGS']);
+  const result = replaceJs(path, `foo.bar(...$ARGS)`, `fooBar(...$ARGS)`, [
+    '$ARGS',
+  ]);
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('fooBar(1, 2, 3);');
+  expect(result).toBeTruthy();
 });
 
 test('multiple statements with wildcard', () => {
   const path = parseJs('const a = f(1);');
-  replaceJs(path, `const a = f(X)`, `const a = f(X);const b = 2;`, ['X']);
+  const result = replaceJs(
+    path,
+    `const a = f(X)`,
+    `const a = f(X);const b = 2;`,
+    ['X']
+  );
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = f(1);\nconst b = 2;');
+  expect(result).toBeTruthy();
 });
 
 test('multiple statements with spread wildcard', () => {
   const path = parseJs('const a = f(1, 2);');
-  replaceJs(path, `const a = f(...X)`, `const a = f(...X);const b = 2;`, ['X']);
+  const result = replaceJs(
+    path,
+    `const a = f(...X)`,
+    `const a = f(...X);const b = 2;`,
+    ['X']
+  );
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = f(1, 2);\nconst b = 2;');
+  expect(result).toBeTruthy();
 });
 
 test('ignore superset', () => {
   const path = parseJs('const a = XXX * c + d;');
-  replaceJs(path, `XXX * X`, `XXX || X`, ['X']);
+  const result = replaceJs(path, `XXX * X`, `XXX || X`, ['X']);
   const generated = generateJs(path);
   expect(generated.trim()).toEqual('const a = (XXX || c) + d;');
+  expect(result).toBeTruthy();
 });

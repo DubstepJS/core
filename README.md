@@ -200,7 +200,7 @@ withJsFiles = (glob: string, fn: JsFileMutation) => Promise<void>;
 type JsFileMutation = NodePath => void;
 ```
 
-Runs `withJsFile` only on files that match `glob`. 
+Runs `withJsFile` only on files that match `glob`.
 
 See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `NodePath`'s API.
 
@@ -411,7 +411,7 @@ A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 ```js
 import {replaceJs} from '@dubstep/core';
 
-replaceJs = (path: NodePath, source: string, target: string, wildcards: Array<string>) => void;
+replaceJs = (path: NodePath, source: string, target: string, wildcards: Array<string>) => boolean;
 ```
 
 Replaces code matching `source` with the code in `target`, transferring expressions contained in the `wildcards` list. Note that `path` should be a NodePath to a Program node.
