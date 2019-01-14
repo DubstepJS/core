@@ -41,6 +41,7 @@ export const replaceJs = (
   const spreads = {};
   const interpolations = {};
   for (const name of wildcards) interpolations[name] = null;
+  let nodeReplaced = false;
   path.traverse({
     [node.type](path) {
       if (matched.get(node)) return; //prevent traversal if replaced with same code
@@ -54,9 +55,11 @@ export const replaceJs = (
           for (const statement of transformed) {
             if (match(node, statement)) matched.set(node, true);
           }
+          nodeReplaced = true;
           path.replaceWithMultiple(transformed);
         } else {
           if (match(node, transformed)) matched.set(node, true);
+          nodeReplaced = true;
           path.replaceWith(transformed);
         }
       }
@@ -73,7 +76,7 @@ export const replaceJs = (
       }
     },
   });
-  return matched.size > 0 || spreadReplaced;
+  return nodeReplaced || spreadReplaced;
 };
 
 function match(a, b, interpolations = {}, spreads = {}) {
