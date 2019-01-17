@@ -39,7 +39,7 @@ async function run() {
   const state = {name: ''};
   const stepper = new Stepper([
     step('name', async () => {
-      state.name = await inquirer.prompt({message: 'Name:', type: 'input'});
+      state.name = await inquirer.prompt({message: 'Name:', type: 'input', name: 'name'});
     }),
     step('clone', async () => {
       gitClone('some-scaffold-template.git', state.name);
