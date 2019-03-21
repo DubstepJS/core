@@ -87,6 +87,7 @@ Array [
   "insertJsAfter",
   "insertJsBefore",
   "moveFile",
+  "parseStatement",
   "parseJs",
   "readFile",
   "removeFile",

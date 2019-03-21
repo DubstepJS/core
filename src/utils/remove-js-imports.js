@@ -25,8 +25,7 @@ THE SOFTWARE.
 import {parseJs} from './parse-js.js';
 import type {BabelPath} from 'babel-flow-types';
 
-export const removeJsImports = (path: BabelPath, code: string): boolean => {
-  let removed = false;
+export const removeJsImports = (path: BabelPath, code: string): void => {
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
@@ -50,9 +49,6 @@ export const removeJsImports = (path: BabelPath, code: string): boolean => {
                 return true;
               }
             });
-            if (filtered.length !== targetPath.node.specifiers.length) {
-              removed = true;
-            }
             if (filtered.length > 0) targetPath.node.specifiers = filtered;
             else targetPath.remove();
           }
@@ -60,7 +56,6 @@ export const removeJsImports = (path: BabelPath, code: string): boolean => {
       });
     },
   });
-  return removed;
 };
 
 function remove(path, name) {

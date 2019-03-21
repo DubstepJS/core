@@ -34,10 +34,7 @@ export const withJsFile = async (file: string, transform: JsFileMutation) => {
   const code = await readFile(file).catch(() => '');
   try {
     const program = parseJs(code);
-    const result = await transform(program);
-    if (result === false) {
-      return;
-    }
+    await transform(program);
     const generated = generateJs(program);
     await writeFile(file, generated);
   } catch (e) {
