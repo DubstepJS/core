@@ -29,6 +29,10 @@ import recast from 'recast';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 
+export const parseStatement = (code: string, options: ParserOptions) => {
+  return parseJs(code, options).node.body[0];
+};
+
 export const parseJs = (code: string, options: ParserOptions) => {
   const typeSystem =
     options && options.mode === 'typescript'

@@ -392,6 +392,17 @@ Parses a Javascript code string into a `BabelPath`. The default `mode` is `flow`
 
 See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `BabelPath`'s API.
 
+##### parseStatement 
+
+```js
+import {parseStatement} from '@dubstep/core';
+
+type parseStatement = (code: string, options: ParserOptions) => Node;
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
+```
+
+Parses a Javascript code statement into a `Node`. Similar to `parseJs` but extracts the statement node.
+
 ##### removeJsImports
 
 ```js
@@ -411,7 +422,7 @@ A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 ```js
 import {replaceJs} from '@dubstep/core';
 
-type replaceJs = (path: BabelPath, source: string, target: string, wildcards: Array<string>) => boolean;
+type replaceJs = (path: BabelPath, source: string, target: string, wildcards: Array<string>) => void;
 ```
 
 Replaces code matching `source` with the code in `target`, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node.

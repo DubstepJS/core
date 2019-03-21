@@ -32,7 +32,7 @@ import type {BabelPath} from 'babel-flow-types';
 export const visitJsImport = (
   path: BabelPath,
   source: string,
-  handler: (path: BabelPath, refPaths: Array<BabelPath>) => Boolean | void
+  handler: (path: BabelPath, refPaths: Array<BabelPath>) => any
 ) => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
@@ -51,7 +51,6 @@ export const visitJsImport = (
   }
   const sourceSpecifier = specifiers[0];
   const localName = specifiers[0].local.name;
-  let hasChange = false;
   path.traverse({
     ImportDeclaration(ipath: BabelPath) {
       const sourceName = ipath.get('source').node.value;
@@ -75,11 +74,9 @@ export const visitJsImport = (
           (isImportDefaultSpecifier(targetSpecifier) &&
             isImportDefaultSpecifier(sourceSpecifier))
         ) {
-          hasChange = hasChange || handler(ipath, refPaths);
-          return;
+          handler(ipath, refPaths);
         }
       });
     },
   });
-  return hasChange;
 };
