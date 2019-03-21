@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 import {remove, pathExists} from 'fs-extra';
-import {StepperError} from '../core/index.js';
+import {StepperError} from '../step';
 import {createRestorePoint} from './create-restore-point.js';
 
 test('createRestorePoint', async () => {

@@ -22,14 +22,28 @@ THE SOFTWARE.
 @flow
 */
 
-import type {StepperError} from '../step';
-import {withJsonFile} from './with-json-file';
-
-export const createRestorePoint = (file: string, e: StepperError) => {
-  return withJsonFile(file, async data => {
-    data.message = e.message;
-    data.stack = e.stack;
-    data.step = e.step;
-    data.index = e.index;
-  });
-};
+export * from './step.js';
+export * from './types.js';
+export * from './utils/create-restore-point.js';
+export * from './utils/ensure-js-imports.js';
+export * from './utils/exec.js';
+export * from './utils/find-files.js';
+export * from './utils/generate-js.js';
+export * from './utils/get-restore-point.js';
+export * from './utils/git-clone.js';
+export * from './utils/git-commit.js';
+export * from './utils/insert-js-after.js';
+export * from './utils/insert-js-before.js';
+export * from './utils/move-file.js';
+export * from './utils/parse-js.js';
+export * from './utils/read-file.js';
+export * from './utils/remove-file.js';
+export * from './utils/remove-js-imports.js';
+export * from './utils/replace-js.js';
+export * from './utils/with-ignore-file.js';
+export * from './utils/with-js-file.js';
+export * from './utils/with-json-file.js';
+export * from './utils/with-text-file.js';
+export * from './utils/write-file.js';
+export * from './utils/with-js-files.js';
+export * from './utils/visit-js-import.js';

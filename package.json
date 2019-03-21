@@ -4,10 +4,10 @@
   "description": "A step runner for scaffolders",
   "author": "Leo Horie",
   "license": "MIT",
-  "main": "dist/core/index.js",
+  "main": "dist/index.js",
   "files": [
     "dist",
-    "src"
+    "src/**/!(*.test).js"
   ],
   "scripts": {
     "upgrade": "yarn upgrade",
@@ -17,7 +17,7 @@
     "lint": "eslint src/",
     "cover": "jest --coverage",
     "flow": "flow check",
-    "prepare": "babel src -d dist -s"
+    "prepare": "babel src -d dist -s && cp flow-exports.txt dist/index.flow.js"
   },
   "watch": {
     "build": {
