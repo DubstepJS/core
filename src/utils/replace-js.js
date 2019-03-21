@@ -24,9 +24,10 @@ THE SOFTWARE.
 
 import template from '@babel/template';
 import {parseJs} from './parse-js.js';
+import type {BabelPath} from 'babel-flow-types';
 
 export const replaceJs = (
-  path: NodePath,
+  path: BabelPath,
   source: string,
   target: string,
   wildcards: Array<string> = []

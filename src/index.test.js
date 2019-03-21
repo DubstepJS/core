@@ -71,7 +71,6 @@ test('StepperError', () => {
 });
 
 test('API', () => {
-  // $FlowFixMe
   expect(Object.keys(API)).toMatchInlineSnapshot(`
 Array [
   "Stepper",

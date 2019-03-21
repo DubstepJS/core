@@ -44,6 +44,7 @@
     "@babel/template": "^7.1.2",
     "@babel/traverse": "^7.1.5",
     "@babel/types": "^7.1.5",
+    "babel-flow-types": "^1.2.3",
     "execa": "^1.0.0",
     "flow-coverage-report": "^0.6.0",
     "fs-extra": "^7.0.1",

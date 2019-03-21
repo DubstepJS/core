@@ -73,7 +73,7 @@ export const parseJs = (code: string, options: ParserOptions) => {
   });
 
   // ensure `path` has correct type to keep flow.js happy
-  // we always override the dummy NodePath with the `enter` visitor
+  // we always override the dummy BabelPath with the `enter` visitor
   let path = new NodePath();
   traverse(ast, {
     enter(p) {

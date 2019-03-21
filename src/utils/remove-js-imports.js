@@ -23,8 +23,9 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
+import type {BabelPath} from 'babel-flow-types';
 
-export const removeJsImports = (path: NodePath, code: string): boolean => {
+export const removeJsImports = (path: BabelPath, code: string): boolean => {
   let removed = false;
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
@@ -63,10 +64,13 @@ export const removeJsImports = (path: NodePath, code: string): boolean => {
 };
 
 function remove(path, name) {
-  const refPaths = path.scope.bindings[name].referencePaths;
-  for (const refPath of refPaths) {
-    if (refPath.node.type !== 'ImportDeclaration') {
-      refPath.getStatementParent().remove();
+  const binding = path.scope.getBinding(name);
+  if (binding) {
+    const refPaths = binding.referencePaths;
+    for (const refPath of refPaths) {
+      if (refPath.type !== 'ImportDeclaration') {
+        refPath.getStatementParent().remove();
+      }
     }
   }
 }

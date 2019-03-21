@@ -76,7 +76,7 @@ import {Stepper} from '@dubstep/core';
 
 class Stepper {
   constructor(preset: Preset)
-  run(options: StepperOptions): Promise<void> // rejects w/ StepperError
+  run(options: StepperOptions): Promise<any> // rejects w/ StepperError
   on(type: 'progress', handler: StepperEventHandler)
   off(type: 'progress', handler: StepperEventHandler)
 }
@@ -93,10 +93,10 @@ A stepper can take a list of steps, run them in series and emit progress events.
 ```js
 import {step} from '@dubstep/core';
 
-step = (name: string, step: AsyncFunction) => Step;
+type step = (name: string, step: AsyncFunction) => Step;
 
 type Step = {name: string, step: AsyncFunction};
-type AsyncFunction = () => Promise<void>;
+type AsyncFunction = () => Promise<any>;
 ```
 
 A step consists of a descriptive name and an async function.
@@ -128,7 +128,7 @@ A stepper error indicates what step failed. It can be used for resuming executio
 ```js
 import {findFiles} from '@dubstep/core';
 
-findFiles = (glob?: string, filter?: string => boolean) => Promise<Array<string>>;
+type findFiles = (glob?: string, filter?: string => boolean) => Promise<Array<string>>;
 ```
 
 Resolves to a list of file names that match `glob` and match the condition from the `filter` function. Respects .gitignore.
@@ -138,7 +138,7 @@ Resolves to a list of file names that match `glob` and match the condition from 
 ```js
 import {moveFile} from '@dubstep/core';
 
-moveFile = (oldName: string, newName: string) => Promise<void>;
+type moveFile = (oldName: string, newName: string) => Promise<any>;
 ```
 
 Moves an existing file or directory to the location specified by `newName`. If the file specified by `oldName` doesn't exist, it no-ops.
@@ -148,7 +148,7 @@ Moves an existing file or directory to the location specified by `newName`. If t
 ```js
 import {readFile} from '@dubstep/core';
 
-readFile = (file: string) => Promise<string>;
+type readFile = (file: string) => Promise<string>;
 ```
 
 Reads the specified file into a UTF-8 string. If the file doesn't exist, the function throws a ENOENT error.
@@ -158,7 +158,7 @@ Reads the specified file into a UTF-8 string. If the file doesn't exist, the fun
 ```js
 import {removeFile} from '@dubstep/core';
 
-removeFile = (file: string) => Promise<void>;
+type removeFile = (file: string) => Promise<any>;
 ```
 
 Removes the specified file. If the file doesn't exist, it no-ops.
@@ -168,7 +168,7 @@ Removes the specified file. If the file doesn't exist, it no-ops.
 ```js
 import {withIgnoreFile} from '@dubstep/core';
 
-withIgnoreFile = (file: string, fn: IgnoreFileMutation) => Promise<void>;
+type withIgnoreFile = (file: string, fn: IgnoreFileMutation) => Promise<any>;
 type IgnoreFileMutation = (data: Array<string>) => Promise<?Array<string>>;
 ```
 
@@ -181,35 +181,35 @@ If the file does not exist, `fn` is called with an empty array, and the file is 
 ```js
 import {withJsFile} from '@dubstep/core';
 
-withJsFile = (file: string, fn: JsFileMutation) => Promise<void>;
-type JsFileMutation = NodePath => void;
+type withJsFile = (file: string, fn: JsFileMutation) => Promise<any>;
+type JsFileMutation = BabelPath => Promise<any>;
 ```
 
-Opens a file, parses each line into a Babel NodePath, and calls `fn` with NodePath. Then, writes the modified AST back into the file.
+Opens a file, parses each line into a Babel BabelPath, and calls `fn` with BabelPath. Then, writes the modified AST back into the file.
 
-If the file does not exist, `fn` is called with a empty program NodePath, and the file is created (including missing directories).
+If the file does not exist, `fn` is called with a empty program BabelPath, and the file is created (including missing directories).
 
-See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `NodePath`'s API.
+See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `BabelPath`'s API.
 
 ##### withJsFiles
 
 ```js
 import {withJsFiles} from '@dubstep/core';
 
-withJsFiles = (glob: string, fn: JsFileMutation) => Promise<void>;
-type JsFileMutation = NodePath => void;
+type withJsFiles = (glob: string, fn: JsFileMutation) => Promise<any>;
+type JsFileMutation = BabelPath => Promise<any>;
 ```
 
 Runs `withJsFile` only on files that match `glob`.
 
-See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `NodePath`'s API.
+See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `BabelPath`'s API.
 
 ##### withJsonFile
 
 ```js
 import {withJsonFile} from '@dubstep/core';
 
-withJsonFile = (file: string, fn: JsonFileMutation) => Promise<void>;
+type withJsonFile = (file: string, fn: JsonFileMutation) => Promise<any>;
 type JsonFileMutation = (data: any) => Promise<any>;
 ```
 
@@ -222,7 +222,7 @@ If the file does not exist, `fn` is called with an empty object, and the file is
 ```js
 import {withTextFile} from '@dubstep/core';
 
-withTextFile = (file: string, fn: TextFileMutation) => Promise<void>;
+type withTextFile = (file: string, fn: TextFileMutation) => Promise<any>;
 type TextFileMutation = (data: string) => Promise<?string>;
 ```
 
@@ -235,7 +235,7 @@ If the file does not exist, `fn` is called with an empty string, and the file is
 ```js
 import {writeFile} from '@dubstep/core';
 
-writeFile = (file: string, data: string) => Promise<void>;
+type writeFile = (file: string, data: string) => Promise<any>;
 ```
 
 Writes `data` to `file`. If the file doesn't exist, it's created (including missing directories)
@@ -249,10 +249,10 @@ Writes `data` to `file`. If the file doesn't exist, it's created (including miss
 ```js
 import {ensureJsImports} from '@dubstep/core';
 
-ensureJsImports = (path: NodePath, code: string) => Array<Object<string, string>>;
+type ensureJsImports = (path: BabelPath, code: string) => Array<Object<string, string>>;
 ```
 
-If an import declaration in `code` is missing in the program, it's added. If it's already present, specifiers are added if not present. Note that the `NodePath` should be for a Program node, and that it is mutated in-place.
+If an import declaration in `code` is missing in the program, it's added. If it's already present, specifiers are added if not present. Note that the `BabelPath` should be for a Program node, and that it is mutated in-place.
 
 Returns a list of maps of specifier local names. The default specifier is bound to the key `default`.
 
@@ -264,17 +264,17 @@ ensureJsImports(parseJs(`import a from 'a';`), `import foo from 'a'`);
 // > {default: 'a'};
 ```
 
-A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
+A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 
 ##### visitJsImport
 
 ```js
 import {visitJsImport} from '@dubstep/core';
 
-visitJsImport = (
-  path: NodePath,
+type visitJsImport = (
+  path: BabelPath,
   code: string,
-  handler: (importPath: NodePath, refPaths: Array<NodePath>) => void)
+  handler: (importPath: BabelPath, refPaths: Array<BabelPath>) => void)
 : void
 ```
 
@@ -291,7 +291,7 @@ visitJsImport(
   `import {a} from 'a';`,
   (importPath, refPaths) => {
     // importPath corresponds to the ImportDeclaration from 'a';
-    // refPaths is a list of NodePaths corresponding to the usage of the a variable
+    // refPaths is a list of BabelPaths corresponding to the usage of the a variable
   }
 );
 ```
@@ -301,21 +301,21 @@ visitJsImport(
 ```js
 import {generateJs} from '@dubstep/core';
 
-generateJs = (path: NodePath) => string;
+type generateJs = (path: BabelPath) => string;
 ```
 
-Converts a Program `NodePath` into a Javascript code string.
-A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
+Converts a Program `BabelPath` into a Javascript code string.
+A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 
 ##### insertJsAfter
 
 ```js
 import {insertJsAfter} from '@dubstep/core';
 
-insertJsAfter = (path: NodePath, target: string, code: string, wildcards: Array<string>) => void
+type insertJsAfter = (path: BabelPath, target: string, code: string, wildcards: Array<string>) => void
 ```
 
-Inserts the statements in `code` after the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a NodePath to a Program node..
+Inserts the statements in `code` after the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node..
 
 ```js
 const path = parseJs(`const a = 1;`);
@@ -348,10 +348,10 @@ const b = 2;
 ```js
 import {insertJsBefore} from '@dubstep/core';
 
-insertJsBefore = (path: NodePath, target: string, code: string, wildcards: Array<string>) => void
+type insertJsBefore = (path: BabelPath, target: string, code: string, wildcards: Array<string>) => void
 ```
 
-Inserts the statements in `code` before the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a NodePath to a Program node..
+Inserts the statements in `code` before the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node..
 
 ```js
 const path = parseJs(`const a = 1;`);
@@ -384,37 +384,37 @@ const a = f(1, 2, 3);
 ```js
 import {parseJs} from '@dubstep/core';
 
-parseJs = (code: string, options: ParserOptions) => NodePath;
+type parseJs = (code: string, options: ParserOptions) => BabelPath;
 type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
-Parses a Javascript code string into a `NodePath`. The default `mode` is `flow`. The parser configuration follows [Postel's Law](https://en.wikipedia.org/wiki/Robustness_principle), i.e. it accepts all syntax options supported by Babel in order to maximize its versatility.
+Parses a Javascript code string into a `BabelPath`. The default `mode` is `flow`. The parser configuration follows [Postel's Law](https://en.wikipedia.org/wiki/Robustness_principle), i.e. it accepts all syntax options supported by Babel in order to maximize its versatility.
 
-See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `NodePath`'s API.
+See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `BabelPath`'s API.
 
 ##### removeJsImports
 
 ```js
 import {removeJsImports} from '@dubstep/core';
 
-removeJsImports = (path: NodePath, code: string) => void
+type removeJsImports = (path: BabelPath, code: string) => void
 ```
 
-Removes the specifiers declared in `code` for the relevant source. If the import declaration no longer has specifiers after that, the declaration is also removed. Note that `path` should be a NodePath for a Program node.
+Removes the specifiers declared in `code` for the relevant source. If the import declaration no longer has specifiers after that, the declaration is also removed. Note that `path` should be a BabelPath for a Program node.
 
 In addition, it removes all statements that reference the removed specifier local binding name.
 
-A `NodePath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
+A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 
 ##### replaceJs
 
 ```js
 import {replaceJs} from '@dubstep/core';
 
-replaceJs = (path: NodePath, source: string, target: string, wildcards: Array<string>) => boolean;
+type replaceJs = (path: BabelPath, source: string, target: string, wildcards: Array<string>) => boolean;
 ```
 
-Replaces code matching `source` with the code in `target`, transferring expressions contained in the `wildcards` list. Note that `path` should be a NodePath to a Program node.
+Replaces code matching `source` with the code in `target`, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node.
 
 ```js
 replaceJs(
@@ -451,7 +451,7 @@ transformed(1, 2, 3); // after
 ```js
 import {gitClone} from '@dubstep/core';
 
-gitClone = (repo: string, target: string) => Promise<void>;
+type gitClone = (repo: string, target: string) => Promise<any>;
 ```
 
 Clones a repo into the `target` directory. If the directory exists, it no-ops.
@@ -461,7 +461,7 @@ Clones a repo into the `target` directory. If the directory exists, it no-ops.
 ```js
 import {gitCommit} from '@dubstep/core';
 
-gitCommit = (message: string) => Promise<void>;
+type gitCommit = (message: string) => Promise<any>;
 ```
 
 Creates a local commit containing all modified files with the specified message (but does not push it to origin).
@@ -475,7 +475,7 @@ Creates a local commit containing all modified files with the specified message 
 ```js
 import {createRestorePoint} from '@dubstep/core';
 
-createRestorePoint = (file: string, e: StepperError) => Promise<void>;
+type createRestorePoint = (file: string, e: StepperError) => Promise<any>;
 ```
 
 Creates a restore file that stores `StepperError` information.
@@ -485,7 +485,7 @@ Creates a restore file that stores `StepperError` information.
 ```js
 import {getRestorePoint} from '@dubstep/core';
 
-getRestorePoint = (file: string) => Promise<number>;
+type getRestorePoint = (file: string) => Promise<number>;
 ```
 
 Resolves to the index of the failing step recorded in a restore file.
@@ -499,7 +499,7 @@ Resolves to the index of the failing step recorded in a restore file.
 ```js
 import {exec} from '@dubstep/core';
 
-exec = (command: string, options: Object) => Promise<string>;
+type exec = (command: string, options: Object) => Promise<string>;
 ```
 
 Runs a CLI command in the shell and resolves to `stdout` output. Options provided are passed directly into [execa](https://github.com/sindresorhus/execa#options).

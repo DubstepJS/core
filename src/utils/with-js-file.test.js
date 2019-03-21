@@ -31,6 +31,6 @@ test('withJsFile', async () => {
   const file = '__js__.js';
   await writeFile(file, 'a');
   await withJsFile(file, fn);
-  expect(fn.mock.calls[0][0].node.type).toBe('Program');
+  expect(fn.mock.calls[0][0].type).toBe('Program');
   await remove(file);
 });
