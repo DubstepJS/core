@@ -23,8 +23,9 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
+import type {BabelPath, Node} from 'babel-flow-types';
 
-export const ensureJsImports = (path: NodePath, code: string) => {
+export const ensureJsImports = (path: BabelPath, code: string) => {
   let specifierLists = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {
@@ -68,12 +69,15 @@ export const ensureJsImports = (path: NodePath, code: string) => {
       });
 
       if (!matched) {
+        const body: Array<Node> = path.get('body');
         // insert declaration
-        const index = path.node.body.findIndex(node => {
+        const index = body.findIndex(node => {
           return node.type !== 'ImportDeclaration';
         });
-        const offset = index < 0 ? path.node.body.length : index;
+        const offset = index < 0 ? body.length : index;
+        // $FlowFixMe
         path.node.body.splice(offset, 0, newPath.node);
+
         const specifiers = newPath.node.specifiers;
         if (hasDefaultSpecifier(newPath.node)) {
           specifierList.default = specifiers[0].local.name;

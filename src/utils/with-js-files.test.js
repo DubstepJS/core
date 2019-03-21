@@ -31,6 +31,6 @@ test('withJsFiles', async () => {
   const file = '__sugared__/tmp.js';
   await writeFile(file, 'a');
   await withJsFiles('__sugared__/tmp.js', fn);
-  expect(fn.mock.calls[0][0].node.type).toBe('Program');
+  expect(fn.mock.calls[0][0].type).toBe('Program');
   await remove('__sugared__');
 });

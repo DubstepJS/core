@@ -27,11 +27,12 @@ import {
   isImportNamespaceSpecifier,
   isImportSpecifier,
 } from '@babel/types';
+import type {BabelPath} from 'babel-flow-types';
 
 export const visitJsImport = (
-  path: NodePath,
+  path: BabelPath,
   source: string,
-  handler: (path: NodePath, refPaths: Array<NodePath>) => Boolean | void
+  handler: (path: BabelPath, refPaths: Array<BabelPath>) => Boolean | void
 ) => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
@@ -52,13 +53,14 @@ export const visitJsImport = (
   const localName = specifiers[0].local.name;
   let hasChange = false;
   path.traverse({
-    ImportDeclaration(ipath: NodePath) {
+    ImportDeclaration(ipath: BabelPath) {
       const sourceName = ipath.get('source').node.value;
       if (sourceName !== sourceNode.source.value) {
         return;
       }
       ipath.get('specifiers').forEach(targetSpecifier => {
         const targetName = targetSpecifier.get('local').node.name;
+        // $FlowFixMe
         const binding = ipath.scope.bindings[targetName];
         const refPaths = binding ? binding.referencePaths : [];
         if (
