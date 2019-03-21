@@ -22,16 +22,14 @@ THE SOFTWARE.
 @flow
 */
 
-export type Preset = Array<Step>;
-export type Step = {name: string, step: AsyncFunction};
-export type AsyncFunction = () => Promise<void>;
-export type StepperOptions = ?{from: ?number, to: ?number};
-export type StepperEventType = 'progress';
-export type StepperEventHandler = ({
-  index: number,
-  total: number,
-  step: string,
-}) => void;
+import type {
+  Preset,
+  StepperEventHandler,
+  StepperOptions,
+  StepperEventType,
+  AsyncFunction,
+  Step,
+} from './types';
 
 export class Stepper {
   preset: Preset;
@@ -76,27 +74,3 @@ export class StepperError extends Error {
     this.index = index;
   }
 }
-
-export * from '../utils/create-restore-point.js';
-export * from '../utils/ensure-js-imports.js';
-export * from '../utils/exec.js';
-export * from '../utils/find-files.js';
-export * from '../utils/generate-js.js';
-export * from '../utils/get-restore-point.js';
-export * from '../utils/git-clone.js';
-export * from '../utils/git-commit.js';
-export * from '../utils/insert-js-after.js';
-export * from '../utils/insert-js-before.js';
-export * from '../utils/move-file.js';
-export * from '../utils/parse-js.js';
-export * from '../utils/read-file.js';
-export * from '../utils/remove-file.js';
-export * from '../utils/remove-js-imports.js';
-export * from '../utils/replace-js.js';
-export * from '../utils/with-ignore-file.js';
-export * from '../utils/with-js-file.js';
-export * from '../utils/with-json-file.js';
-export * from '../utils/with-text-file.js';
-export * from '../utils/write-file.js';
-export * from '../utils/with-js-files.js';
-export * from '../utils/visit-js-import.js';
