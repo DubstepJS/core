@@ -27,7 +27,7 @@ import {writeFile} from './write-file.js';
 import {parseJs} from './parse-js.js';
 import {generateJs} from './generate-js.js';
 
-export type JsFileMutation = NodePath => void;
+export type JsFileMutation = NodePath => Promise<any>;
 
 export const withJsFile = async (file: string, transform: JsFileMutation) => {
   const code = await readFile(file).catch(() => '');
