@@ -227,6 +227,11 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@ganemone/babel-flow-types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ganemone/babel-flow-types/-/babel-flow-types-2.0.0.tgz#9400882e3b4a598b7e4e0fe60c3ef86b37f51597"
+  integrity sha512-umOaRTY4wqEDmq2FfO2JJVvhfS+qmoGu3xMe9oARErdOg/Bo5HHz/kcdJwwJLW8bYd9tzIAeD1pOVAn4jleK4A==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -555,15 +560,10 @@ babel-eslint@10.0.1:
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@babel/parser" "^7.0.0"
-    "@babel/traverse" "^7.0.0"
+@ganemone/babel-flow-typeserse" "^7.0.0"
     "@babel/types" "^7.0.0"
-    eslint-scope "3.7.1"
+    eslint-scope "3.7.1"@ganemone/babel-flow-types@ganemone/babel-flow-types
     eslint-visitor-keys "^1.0.0"
-
-babel-flow-types@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/babel-flow-types/-/babel-flow-types-1.2.3.tgz#e9c94ac1063a8857f8b2a67c2e17eb6cccd519e3"
-  integrity sha1-6clKwQY6iFf4sqZ8LhfrbMzVGeM=
 
 babel-generator@^6.18.0, babel-generator@^6.26.0:
   version "6.26.1"

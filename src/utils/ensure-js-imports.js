@@ -23,9 +23,9 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
-import type {BabelPath, Node} from 'babel-flow-types';
+import type {BabelPath, Node} from '@ganemone/babel-flow-types';
 
-export const ensureJsImports = (path: BabelPath, code: string) => {
+export const ensureJsImports = (path: BabelPath<Node>, code: string) => {
   let specifierLists = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {

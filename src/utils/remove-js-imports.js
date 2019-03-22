@@ -23,9 +23,9 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
-import type {BabelPath} from 'babel-flow-types';
+import type {BabelPath, Node} from '@ganemone/babel-flow-types';
 
-export const removeJsImports = (path: BabelPath, code: string): void => {
+export const removeJsImports = (path: BabelPath<Node>, code: string): void => {
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
