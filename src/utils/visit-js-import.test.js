@@ -108,5 +108,5 @@ test('visitJsImport validation', () => {
   expect(() => {
     visitJsImport(path, `import {a, b} from 'c'`, handler);
   }).toThrow();
-  expect(handler).not.toBeCalled();
+  expect(handler).not.toHaveBeenCalled();
 });

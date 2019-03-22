@@ -24,10 +24,10 @@ THE SOFTWARE.
 
 import template from '@babel/template';
 import {parseJs} from './parse-js.js';
-import type {BabelPath, Node} from '@ganemone/babel-flow-types';
+import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const replaceJs = (
-  path: BabelPath<Node>,
+  path: BabelPath<any>,
   source: string,
   target: string,
   wildcards: Array<string> = []
@@ -76,6 +76,7 @@ export const replaceJs = (
 
 function match(a, b, interpolations = {}, spreads = {}) {
   if (isInterpolation(b, interpolations)) {
+    // $FlowFixMe
     interpolations[b.name] = a;
     return true;
   }
@@ -124,6 +125,7 @@ function isNode(node) {
 function isEquivalentJSXText(a, b, key) {
   // JSX text node might have different values depending on indentation
   return (
+    // $FlowFixMe
     a.type === 'JSXText' && key === 'value' && a.value.trim() === b.value.trim()
   );
 }

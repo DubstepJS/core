@@ -23,9 +23,12 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
-import type {BabelPath, Node} from '@ganemone/babel-flow-types';
+import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
-export const removeJsImports = (path: BabelPath<Node>, code: string): void => {
+export const removeJsImports = (
+  path: BabelPath<Program>,
+  code: string
+): void => {
   parseJs(code).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
@@ -64,7 +67,8 @@ function remove(path, name) {
     const refPaths = binding.referencePaths;
     for (const refPath of refPaths) {
       if (refPath.type !== 'ImportDeclaration') {
-        refPath.getStatementParent().remove();
+        const parent = refPath.getStatementParent();
+        parent && parent.remove();
       }
     }
   }
