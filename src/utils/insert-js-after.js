@@ -23,10 +23,10 @@ THE SOFTWARE.
 */
 
 import {replaceJs} from './replace-js.js';
-import type {BabelPath, Node} from '@ganemone/babel-flow-types';
+import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const insertJsAfter = (
-  path: BabelPath<Node>,
+  path: BabelPath<any>,
   target: string,
   code: string,
   wildcards: Array<string> = []

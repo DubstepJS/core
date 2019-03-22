@@ -29,13 +29,13 @@ import {
 } from '@babel/types';
 import type {
   BabelPath,
-  Node,
+  Program,
   ImportDeclaration,
   Identifier,
 } from '@ganemone/babel-flow-types';
 
 export const visitJsImport = (
-  path: BabelPath<Node>,
+  path: BabelPath<Program>,
   source: string,
   handler: (
     path: BabelPath<ImportDeclaration>,

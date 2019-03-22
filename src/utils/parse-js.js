@@ -26,14 +26,18 @@ import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
 import {parse} from '@babel/parser';
 import recast from 'recast';
+import type {Node, BabelPath, Program} from '@ganemone/babel-flow-types';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 
-export const parseStatement = (code: string, options: ParserOptions) => {
+export const parseStatement = (code: string, options: ParserOptions): Node => {
   return parseJs(code, options).node.body[0];
 };
 
-export const parseJs = (code: string, options: ParserOptions) => {
+export const parseJs = (
+  code: string,
+  options: ParserOptions
+): BabelPath<Program> => {
   const typeSystem =
     options && options.mode === 'typescript'
       ? ['typescript']
