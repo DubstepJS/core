@@ -23,9 +23,9 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js.js';
-import type {BabelPath, Node} from '@ganemone/babel-flow-types';
+import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
 
-export const ensureJsImports = (path: BabelPath<Node>, code: string) => {
+export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
   let specifierLists = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {
@@ -75,7 +75,6 @@ export const ensureJsImports = (path: BabelPath<Node>, code: string) => {
           return node.type !== 'ImportDeclaration';
         });
         const offset = index < 0 ? body.length : index;
-        // $FlowFixMe
         path.node.body.splice(offset, 0, newPath.node);
 
         const specifiers = newPath.node.specifiers;

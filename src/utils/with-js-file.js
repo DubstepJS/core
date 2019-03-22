@@ -26,9 +26,9 @@ import {readFile} from './read-file.js';
 import {writeFile} from './write-file.js';
 import {parseJs} from './parse-js.js';
 import {generateJs} from './generate-js.js';
-import type {BabelPath, Node} from '@ganemone/babel-flow-types';
+import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
-export type JsFileMutation = (BabelPath<Node>) => Promise<any>;
+export type JsFileMutation = (BabelPath<Program>) => Promise<any>;
 
 export const withJsFile = async (file: string, transform: JsFileMutation) => {
   const code = await readFile(file).catch(() => '');
