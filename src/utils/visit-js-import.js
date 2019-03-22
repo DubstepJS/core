@@ -27,12 +27,20 @@ import {
   isImportNamespaceSpecifier,
   isImportSpecifier,
 } from '@babel/types';
-import type {BabelPath} from 'babel-flow-types';
+import type {
+  BabelPath,
+  Node,
+  ImportDeclaration,
+  Identifier,
+} from '@ganemone/babel-flow-types';
 
 export const visitJsImport = (
-  path: BabelPath,
+  path: BabelPath<Node>,
   source: string,
-  handler: (path: BabelPath, refPaths: Array<BabelPath>) => any
+  handler: (
+    path: BabelPath<ImportDeclaration>,
+    refPaths: Array<BabelPath<Identifier>>
+  ) => any
 ) => {
   const sourcePath = parseJs(source);
   const sourceNode = sourcePath.node.body[0];
@@ -52,7 +60,7 @@ export const visitJsImport = (
   const sourceSpecifier = specifiers[0];
   const localName = specifiers[0].local.name;
   path.traverse({
-    ImportDeclaration(ipath: BabelPath) {
+    ImportDeclaration(ipath: BabelPath<ImportDeclaration>) {
       const sourceName = ipath.get('source').node.value;
       if (sourceName !== sourceNode.source.value) {
         return;

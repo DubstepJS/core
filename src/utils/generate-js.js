@@ -23,8 +23,8 @@ THE SOFTWARE.
 */
 
 import recast from 'recast';
-import type {BabelPath} from 'babel-flow-types';
+import type {BabelPath, Node} from '@ganemone/babel-flow-types';
 
-export const generateJs = (path: BabelPath) => {
+export const generateJs = (path: BabelPath<Node>) => {
   return recast.print(path.parent).code;
 };
