@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 import template from '@babel/template';
-import {parseJs} from './parse-js.js';
+import {parseStatement} from './parse-js.js';
 import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const replaceJs = (
@@ -32,8 +32,7 @@ export const replaceJs = (
   target: string,
   wildcards: Array<string> = []
 ): void => {
-  const sourcePath = parseJs(source);
-  const sourceNode = sourcePath.node.body[0];
+  const sourceNode = parseStatement(source);
   const node =
     sourceNode.type === 'ExpressionStatement'
       ? sourceNode.expression

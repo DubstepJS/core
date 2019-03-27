@@ -24,8 +24,10 @@ THE SOFTWARE.
 
 import {parseJs} from './parse-js.js';
 import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
+import {normalizeStatement} from './normalize-statement';
 
 export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
+  code = normalizeStatement(code);
   let specifierLists = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {

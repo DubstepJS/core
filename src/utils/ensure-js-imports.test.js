@@ -48,9 +48,10 @@ test('ensureJsImports before', () => {
   const path = parseJs(`const a = 1;`);
   const vars = ensureJsImports(path, `import foo, {bar} from 'bar';`);
   const code = generateJs(path);
-  expect(code.trim()).toMatchInlineSnapshot(
-    `"import foo, {bar} from 'bar';const a = 1;"`
-  );
+  expect(code.trim()).toMatchInlineSnapshot(`
+"import foo, {bar} from 'bar';
+const a = 1;"
+`);
   expect(vars).toEqual([{default: 'foo', bar: 'bar'}]);
 });
 
