@@ -21,7 +21,7 @@ THE SOFTWARE.
 
 @flow
 */
-import {parseJs} from './parse-js';
+import {parseStatement} from './parse-js';
 import {
   isImportDefaultSpecifier,
   isImportNamespaceSpecifier,
@@ -42,8 +42,7 @@ export const visitJsImport = (
     refPaths: Array<BabelPath<Identifier>>
   ) => any
 ) => {
-  const sourcePath = parseJs(source);
-  const sourceNode = sourcePath.node.body[0];
+  const sourceNode = parseStatement(source);
   if (sourceNode.type !== 'ImportDeclaration') {
     throw new Error(
       `Expected source with type ImportDeclaration. Received: ${

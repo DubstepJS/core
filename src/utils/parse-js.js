@@ -27,11 +27,12 @@ import NodePath from '@babel/traverse/lib/path';
 import {parse} from '@babel/parser';
 import recast from 'recast';
 import type {Node, BabelPath, Program} from '@ganemone/babel-flow-types';
+import {normalizeStatement} from './normalize-statement';
 
 export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 
 export const parseStatement = (code: string, options: ParserOptions): Node => {
-  return parseJs(code, options).node.body[0];
+  return parseJs(normalizeStatement(code), options).node.body[0];
 };
 
 export const parseJs = (
