@@ -182,7 +182,7 @@ If the file does not exist, `fn` is called with an empty array, and the file is 
 import {withJsFile} from '@dubstep/core';
 
 type withJsFile = (file: string, fn: JsFileMutation) => Promise<any>;
-type JsFileMutation = BabelPath => Promise<any>;
+type JsFileMutation = (program: BabelPath, file: string) => Promise<any>;
 ```
 
 Opens a file, parses each line into a Babel BabelPath, and calls `fn` with BabelPath. Then, writes the modified AST back into the file.
@@ -197,7 +197,7 @@ See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/mast
 import {withJsFiles} from '@dubstep/core';
 
 type withJsFiles = (glob: string, fn: JsFileMutation) => Promise<any>;
-type JsFileMutation = BabelPath => Promise<any>;
+type JsFileMutation = (program: BabelPath, file: string) => Promise<any>;
 ```
 
 Runs `withJsFile` only on files that match `glob`.
