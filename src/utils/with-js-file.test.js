@@ -32,5 +32,6 @@ test('withJsFile', async () => {
   await writeFile(file, 'a');
   await withJsFile(file, fn);
   expect(fn.mock.calls[0][0].type).toBe('Program');
+  expect(fn.mock.calls[0][1]).toBe('__js__.js');
   await remove(file);
 });
