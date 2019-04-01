@@ -19,7 +19,6 @@ export function collapseImports(
     const statement = importStatements[index];
     const source = statement.source.value;
     const importKind = statement.importKind;
-    console.log(importKind);
     for (
       let nextIndex = index + 1;
       nextIndex < importStatements.length;

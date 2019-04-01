@@ -1,9 +1,9 @@
 // @flow
-import { collapseImports } from "./collapse-imports";
-import { parseJs } from "./parse-js";
-import { generateJs } from "./generate-js";
+import {collapseImports} from './collapse-imports';
+import {parseJs} from './parse-js';
+import {generateJs} from './generate-js';
 
-test("collapseImports", () => {
+test('collapseImports', () => {
   expect(
     generateJs(
       collapseImports(
@@ -27,7 +27,7 @@ test("collapseImports", () => {
 `);
 });
 
-test("collapseImports with type imports", () => {
+test('collapseImports with type imports', () => {
   expect(
     generateJs(
       collapseImports(
