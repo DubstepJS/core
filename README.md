@@ -296,6 +296,26 @@ visitJsImport(
 );
 ```
 
+##### collapseImports
+
+```js
+import {collapseImports} from '@dubstep/core';
+
+type collapseImports = (path: BabelPath<Program>) => BabelPath<Program>
+```
+
+This function collapses multiple import declarations with the same source into a single
+import statement by combining the specifiers. For example:
+
+```js
+import A, {B} from 'a';
+import {C, D} from 'a';
+
+// => 
+
+import A, {B, C, D} from 'a';
+```
+
 ##### generateJs
 
 ```js
