@@ -100,6 +100,7 @@ Array [
   "writeFile",
   "withJsFiles",
   "visitJsImport",
+  "collapseImports",
 ]
 `);
 });

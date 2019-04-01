@@ -47,3 +47,4 @@ export * from './utils/with-text-file.js';
 export * from './utils/write-file.js';
 export * from './utils/with-js-files.js';
 export * from './utils/visit-js-import.js';
+export * from './utils/collapse-imports.js';
