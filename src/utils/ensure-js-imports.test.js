@@ -87,7 +87,7 @@ test('multiple', () => {
 });
 
 test('type imports', () => {
-  const path = parseJs(`import A from 'A'`);
+  const path = parseJs(`import A from 'A';`);
   ensureJsImports(
     path,
     `
@@ -96,12 +96,12 @@ test('type imports', () => {
   );
   const code = generateJs(path);
   expect(code.trim()).toMatchInlineSnapshot(
-    `"import A from 'A'import type {B} from 'A';"`
+    `"import A from 'A';import type {B} from 'A';"`
   );
 });
 
 test('ensuring type imports', () => {
-  const path = parseJs(`import type {A} from 'A'`);
+  const path = parseJs(`import type {A} from 'A';`);
   ensureJsImports(
     path,
     `
@@ -113,7 +113,7 @@ test('ensuring type imports', () => {
 });
 
 test('mixing type and regular importKind', () => {
-  const path = parseJs(`import A, {type B, C} from 'A'`);
+  const path = parseJs(`import A, {type B, C} from 'A';`);
   ensureJsImports(
     path,
     `
