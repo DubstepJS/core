@@ -110,3 +110,63 @@ test('visitJsImport validation', () => {
   }).toThrow();
   expect(handler).not.toHaveBeenCalled();
 });
+
+test('visitJsImport does not confuse type imports with value imports', () => {
+  const handler = jest.fn();
+  visitJsImport(
+    parseJs(`import a from 'c'`),
+    `import type a from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import type a from 'c'`),
+    `import a from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import {type a} from 'c'`),
+    `import {a} from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import type {a} from 'c'`),
+    `import {a} from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import {a} from 'c'`),
+    `import {type a} from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import {a} from 'c'`),
+    `import type {a} from 'c'`,
+    handler
+  );
+  expect(handler).not.toHaveBeenCalled();
+});
+
+test('visitJsImport finds type imports correctly', () => {
+  const handler = jest.fn();
+  visitJsImport(
+    parseJs(`import type a from 'c'`),
+    `import type a from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import {type a} from 'c'`),
+    `import {type a} from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import type {a} from 'c'`),
+    `import {type a} from 'c'`,
+    handler
+  );
+  visitJsImport(
+    parseJs(`import {type a} from 'c'`),
+    `import type {a} from 'c'`,
+    handler
+  );
+  expect(handler).toHaveBeenCalledTimes(4);
+});
