@@ -39,7 +39,10 @@ export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
         ImportDeclaration(path) {
           const specifiers = path.node.specifiers;
           const newSpecifiers = newPath.node.specifiers;
-          if (path.node.source.value === newPath.node.source.value) {
+          if (
+            path.node.source.value === newPath.node.source.value &&
+            path.node.importKind === newPath.node.importKind
+          ) {
             matched = true;
             // add default specifier if it's missing
             const pathHasDefault = hasDefaultSpecifier(path.node);

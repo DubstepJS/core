@@ -85,3 +85,43 @@ test('multiple', () => {
   );
   expect(vars).toEqual([{default: 'foo'}, {default: 'bar', x: 'x'}]);
 });
+
+test('type imports', () => {
+  const path = parseJs(`import A from 'A';`);
+  ensureJsImports(
+    path,
+    `
+    import type {B} from 'A';
+    `
+  );
+  const code = generateJs(path);
+  expect(code.trim()).toMatchInlineSnapshot(
+    `"import A from 'A';import type {B} from 'A';"`
+  );
+});
+
+test('ensuring type imports', () => {
+  const path = parseJs(`import type {A} from 'A';`);
+  ensureJsImports(
+    path,
+    `
+    import type {B} from 'A';
+    `
+  );
+  const code = generateJs(path);
+  expect(code.trim()).toMatchInlineSnapshot(`"import type { A, B } from 'A';"`);
+});
+
+test('mixing type and regular importKind', () => {
+  const path = parseJs(`import A, {type B, C} from 'A';`);
+  ensureJsImports(
+    path,
+    `
+    import {D, type E} from 'A';
+    `
+  );
+  const code = generateJs(path);
+  expect(code.trim()).toMatchInlineSnapshot(
+    `"import A, { type B, C, D, type E } from 'A';"`
+  );
+});
