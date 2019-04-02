@@ -222,10 +222,10 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@ganemone/babel-flow-types@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@ganemone/babel-flow-types/-/babel-flow-types-2.0.2.tgz#8aa5ad991597db7481b139f8cc0a0a09649f8698"
-  integrity sha512-bTxh+DdtzxojUqBtlyX0u8s8zXWjVlRZ9CzSJcM4XhX6JRRWMWyWIsEWzw7v0El3Cv2bOVbI7zIsHN2K05X0sA==
+"@ganemone/babel-flow-types@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@ganemone/babel-flow-types/-/babel-flow-types-2.0.6.tgz#adda45cca61814c44171382caab3fbb4357e2da8"
+  integrity sha512-KVkFzjXdaaPQ7nj0oz5ysjgRD/L83l2vVkxYlQaJPWB3bIHuxTT6Y1EdbMu343gXhsAng+WMRY0DTUczxzjt5w==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"

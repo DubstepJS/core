@@ -64,11 +64,16 @@ export const visitJsImport = (
       if (sourceName !== sourceNode.source.value) {
         return;
       }
-      ipath.get('specifiers').forEach(targetSpecifier => {
-        const targetName = targetSpecifier.get('local').node.name;
+      ipath.node.specifiers.forEach(targetSpecifier => {
+        const targetName = targetSpecifier.local.name;
         // $FlowFixMe
         const binding = ipath.scope.bindings[targetName];
         const refPaths = binding ? binding.referencePaths : [];
+        const targetKind = targetSpecifier.importKind || ipath.node.importKind;
+        const sourceKind = sourceSpecifier.importKind || sourceNode.importKind;
+        if (targetKind !== sourceKind) {
+          return;
+        }
         if (
           // specifier case
           (isImportSpecifier(targetSpecifier) &&
