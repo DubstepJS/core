@@ -170,3 +170,12 @@ test('visitJsImport finds type imports correctly', () => {
   );
   expect(handler).toHaveBeenCalledTimes(4);
 });
+
+test('visitJsImport handling removed paths', () => {
+  const program = parseJs(`import {a, b} from 'c'`);
+  expect(() =>
+    visitJsImport(program, `import {a} from 'c'`, (path, refPaths) => {
+      path.remove();
+    })
+  ).not.toThrow();
+});
