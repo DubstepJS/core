@@ -42,6 +42,7 @@ export const removeJsImports = (
               });
               if (specifier.type === 'ImportSpecifier') {
                 const name = specifier.imported.name;
+                // $FlowFixMe
                 const match = ofSameType.find(s => name === s.imported.name);
                 if (match) remove(path, localName);
                 return !match;

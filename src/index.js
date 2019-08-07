@@ -22,6 +22,11 @@ THE SOFTWARE.
 @flow
 */
 
+import * as types from '@babel/types';
+import {type Types} from '@ganemone/babel-flow-types';
+
+export const t: Types = types;
+
 export * from './step.js';
 export * from './types.js';
 export * from './utils/create-restore-point.js';
@@ -48,3 +53,4 @@ export * from './utils/write-file.js';
 export * from './utils/with-js-files.js';
 export * from './utils/visit-js-import.js';
 export * from './utils/collapse-imports.js';
+export * from '@ganemone/babel-flow-types';
