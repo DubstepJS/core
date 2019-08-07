@@ -473,6 +473,17 @@ foo.bar(1, 2, 3); // before
 transformed(1, 2, 3); // after
 ```
 
+##### t
+
+```js
+import {t} from '@dubstep/core';
+
+t.arrayExpression([]);
+// etc.
+```
+
+This is a flow-typed version of the exports from `@babel/types`. It is useful for creating AST nodes and asserting on existing AST nodes.
+
 ---
 
 #### Git
