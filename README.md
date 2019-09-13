@@ -296,6 +296,26 @@ visitJsImport(
 );
 ```
 
+##### hasImport
+
+```js
+import {hasImport} from '@dubstep/core';
+
+type hasImport = (path: BabelPath<Program>, code: string) => boolean
+```
+
+Checks if a given program node contains an import matching a string.
+
+```js
+hasImport(
+  parseJs(`
+    import {a} from 'a';
+    console.log(a);
+  `),
+  `import {a} from 'a';`
+); // true
+```
+
 ##### collapseImports
 
 ```js
