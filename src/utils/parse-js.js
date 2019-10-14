@@ -25,7 +25,7 @@ THE SOFTWARE.
 import traverse from '@babel/traverse';
 import NodePath from '@babel/traverse/lib/path';
 import {parse} from '@babel/parser';
-import recast from 'recast';
+import * as recast from 'recast';
 import type {Node, BabelPath, Program} from '@ganemone/babel-flow-types';
 import {normalizeStatement} from './normalize-statement';
 

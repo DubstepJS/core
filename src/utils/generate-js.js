@@ -22,7 +22,7 @@ THE SOFTWARE.
 @flow
 */
 
-import recast from 'recast';
+import * as recast from 'recast';
 import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const generateJs = (path: BabelPath<any>) => {

@@ -48,3 +48,16 @@ test('parseJs with jsx', async () => {
   const generated = generateJs(path);
   expect(generated).toEqual(code);
 });
+
+test('parseJs with class private properties', async () => {
+  const code = `
+    class Test {
+      #test = true;
+      // not sure why but this comment is neccessary to trip the 
+      // legacy recast parser (before it supported private props)
+    }
+  `;
+  const path = parseJs(code);
+  const generated = generateJs(path);
+  expect(generated).toEqual(code);
+});
