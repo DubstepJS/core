@@ -48,3 +48,14 @@ test('parseJs with jsx', async () => {
   const generated = generateJs(path);
   expect(generated).toEqual(code);
 });
+
+test('parseJs with class private properties', async () => {
+  const code = `
+    class Foo {
+      #status = baz;
+    }
+  `;
+  const path = parseJs(code);
+  const generated = generateJs(path);
+  expect(generated).toEqual(code);
+});
