@@ -51,8 +51,10 @@ test('parseJs with jsx', async () => {
 
 test('parseJs with class private properties', async () => {
   const code = `
-    class Foo {
-      #status = baz;
+    class Test {
+      #test = true;
+      // not sure why but this comment is neccessary to trip the 
+      // legacy recast parser (before it supported private props)
     }
   `;
   const path = parseJs(code);
