@@ -45,7 +45,7 @@
     "@babel/traverse": "^7.1.5",
     "@babel/types": "^7.1.5",
     "@ganemone/babel-flow-types": "^2.0.7",
-    "execa": "^1.0.0",
+    "execa": "^5.0.0",
     "flow-coverage-report": "^0.6.0",
     "fs-extra": "^7.0.1",
     "globby": "^8.0.1",
