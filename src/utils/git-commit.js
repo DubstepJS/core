@@ -41,7 +41,7 @@ export const gitCommit = async (message: string) => {
 };
 
 async function get(path) {
-  return git.config({fs, dir: '.', path});
+  return git.getConfig({fs, dir: '.', path});
 }
 async function getGlobalConfig() {
   const home = process.env.HOME || ''; // make Flow happy
