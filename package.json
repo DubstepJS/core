@@ -16,7 +16,7 @@
     "test": "jest",
     "lint": "eslint src/",
     "cover": "jest --coverage",
-    "flow": "flow check",
+    "flow": "flow",
     "prepare": "babel src -d dist -s && cp flow-exports.txt dist/index.js.flow"
   },
   "watch": {
@@ -50,7 +50,7 @@
     "fs-extra": "^7.0.1",
     "globby": "^8.0.1",
     "ini": "^1.3.5",
-    "isomorphic-git": "^0.39.3",
+    "isomorphic-git": "^1.10.3",
     "prettier": "^1.15.1",
     "recast": "^0.18.5"
   },

@@ -24,7 +24,8 @@ THE SOFTWARE.
 
 import fs from 'fs';
 import * as git from 'isomorphic-git';
+import http from 'isomorphic-git/http/node';
 
 export const gitClone = async (repo: string, target: string) => {
-  await git.clone({fs, url: repo, dir: target});
+  await git.clone({fs, http, url: repo, dir: target});
 };

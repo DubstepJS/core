@@ -1,0 +1,16 @@
+[include]
+
+[ignore]
+.*/node_modules/isomorphic-git/.*
+
+[untyped]
+
+[libs]
+
+[lints]
+
+[options]
+
+[version]
+
+[declarations]
