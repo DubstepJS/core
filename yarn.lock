@@ -1571,10 +1571,10 @@ eslint-module-utils@^2.3.0:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
 
-eslint-plugin-cup@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cup/-/eslint-plugin-cup-2.0.1.tgz#dab2827e722404fb590209321538c82226e2c08d"
-  integrity sha512-mQiZ6Wd/LWnSDQ/jhJb7t92MeWBW2x9T1F8QJttIDKvW/1Moedor3tbSMPGu+hhT8m8OL+egvBy6/sslcnQsqw==
+eslint-plugin-cup@2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cup/-/eslint-plugin-cup-2.0.4.tgz#900185eeee13b9ab9501840bd09157630ed6704d"
+  integrity sha512-bAq7j9lAuQFt60bnSRUGSnzgct5SohTeCvsV07IJa4VlvX4JtI4xcgU1WqOSSGNc4jE1qSJZul9lIFQSOywO3Q==
   dependencies:
     globals "^11.5.0"
 
