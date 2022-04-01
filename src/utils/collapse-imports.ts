@@ -13,7 +13,7 @@ export function collapseImports(
       return item.type === 'ImportDeclaration';
     }
   );
-  let filtered = [];
+  const filtered = [];
   for (let index = 0; index < importStatements.length; index++) {
     const statement = importStatements[index];
     const source = statement.source.value;

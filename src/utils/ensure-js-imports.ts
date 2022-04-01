@@ -27,7 +27,7 @@ import {normalizeStatement} from './normalize-statement';
 
 export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
   code = normalizeStatement(code);
-  let specifierLists = [];
+  const specifierLists = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {
       const specifierList = {};
