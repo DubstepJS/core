@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
-import {readFile} from '../utils/read-file.js';
-import {writeFile} from '../utils/write-file.js';
+import {readFile} from '../utils/read-file';
+import {writeFile} from '../utils/write-file';
 
 export type JsonFileMutation = (data: any) => Promise<any>;
 

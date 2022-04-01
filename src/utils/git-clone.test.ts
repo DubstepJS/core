@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove, pathExists} from 'fs-extra';
-import {gitClone} from './git-clone.js';
+import {gitClone} from './git-clone';
 
 test('gitClone works', async () => {
   const dir = '__cloned__';

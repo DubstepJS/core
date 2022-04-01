@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
-import {findFiles} from './find-files.js';
-import {withJsFile} from './with-js-file.js';
-import type {JsFileMutation} from './with-js-file.js';
+import {findFiles} from './find-files';
+import {withJsFile} from './with-js-file';
+import type {JsFileMutation} from './with-js-file';
 
 export const withJsFiles = async (glob: string, fn: JsFileMutation) => {
   const files = await findFiles(glob);

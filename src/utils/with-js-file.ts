@@ -19,16 +19,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
-import {readFile} from './read-file.js';
-import {writeFile} from './write-file.js';
-import {parseJs} from './parse-js.js';
-import {generateJs} from './generate-js.js';
+import {readFile} from './read-file';
+import {writeFile} from './write-file';
+import {parseJs} from './parse-js';
+import {generateJs} from './generate-js';
 import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
-export type JsFileMutation = (BabelPath<Program>, file: string) => Promise<any>;
+export type JsFileMutation = (
+  a: BabelPath<Program>,
+  file: string
+) => Promise<any>;
 
 export const withJsFile = async (file: string, transform: JsFileMutation) => {
   const code = await readFile(file).catch(() => '');

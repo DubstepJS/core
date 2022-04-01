@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import template from '@babel/template';
-import {parseStatement} from './parse-js.js';
+import {parseStatement} from './parse-js';
 import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const replaceJs = (

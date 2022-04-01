@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
-import {parseJs} from './parse-js.js';
-import {ensureJsImports} from './ensure-js-imports.js';
-import {generateJs} from './generate-js.js';
+import {parseJs} from './parse-js';
+import {ensureJsImports} from './ensure-js-imports';
+import {generateJs} from './generate-js';
 
 test('ensureJsImports', () => {
   const path = parseJs('');

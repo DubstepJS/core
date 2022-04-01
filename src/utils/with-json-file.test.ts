@@ -19,17 +19,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove} from 'fs-extra';
-import {withJsonFile} from './with-json-file.js';
-import {writeFile} from './write-file.js';
+import {withJsonFile} from './with-json-file';
+import {writeFile} from './write-file';
 
 test('withJsonFile defaults to empty object if it does not exist', async () => {
   expect.assertions(1);
   const file = '__json__.json';
-  await withJsonFile(file, async (data: Object) => {
+  await withJsonFile(file, async (data: any) => {
     expect(data).toEqual({});
   });
   await remove(file);

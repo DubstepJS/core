@@ -1,4 +1,3 @@
-// @flow
 import {visitJsImport} from './visit-js-import';
 import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 

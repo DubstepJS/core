@@ -1,4 +1,3 @@
-// @flow
 import {collapseImports} from './collapse-imports';
 import {parseJs} from './parse-js';
 import {generateJs} from './generate-js';

@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove, pathExists} from 'fs-extra';
 import {StepperError} from '../step';
-import {createRestorePoint} from './create-restore-point.js';
+import {createRestorePoint} from './create-restore-point';
 
 test('createRestorePoint', async () => {
   const file = '__restore_point__.json';

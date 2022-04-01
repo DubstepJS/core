@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove, ensureFile} from 'fs-extra';
-import {moveFile} from './move-file.js';
+import {moveFile} from './move-file';
 
 test('moveFile no-ops if src does not exist', async () => {
   const source = '__source__/file.txt';

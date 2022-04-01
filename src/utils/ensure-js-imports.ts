@@ -19,10 +19,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
-import {parseJs} from './parse-js.js';
+import {parseJs} from './parse-js';
 import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
 import {normalizeStatement} from './normalize-statement';
 

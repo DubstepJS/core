@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove} from 'fs-extra';
-import {writeFile} from './write-file.js';
-import {withJsFiles} from './with-js-files.js';
+import {writeFile} from './write-file';
+import {withJsFiles} from './with-js-files';
 
 test('withJsFiles', async () => {
   const fn = jest.fn();

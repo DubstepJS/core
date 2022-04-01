@@ -19,12 +19,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {remove} from 'fs-extra';
-import {writeFile} from './write-file.js';
-import {withIgnoreFile} from './with-ignore-file.js';
+import {writeFile} from './write-file';
+import {withIgnoreFile} from './with-ignore-file';
 
 test('withIgnoreFile works', async () => {
   expect.assertions(1);

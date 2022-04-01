@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import traverse from '@babel/traverse';
@@ -29,7 +28,12 @@ import * as recast from 'recast';
 import type {Node, BabelPath, Program} from '@ganemone/babel-flow-types';
 import {normalizeStatement} from './normalize-statement';
 
-export type ParserOptions = ?{mode: ?('typescript' | 'flow')};
+export type ParserOptions =
+  | {
+      mode: 'typescript' | 'flow' | undefined | null;
+    }
+  | undefined
+  | null;
 
 export const parseStatement = (code: string, options: ParserOptions): Node => {
   return parseJs(normalizeStatement(code), options).node.body[0];

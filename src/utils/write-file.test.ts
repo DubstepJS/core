@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import {pathExists, remove} from 'fs-extra';
-import {writeFile} from './write-file.js';
+import {writeFile} from './write-file';
 
 test('writeFile works with deep path', async () => {
   expect.assertions(1);

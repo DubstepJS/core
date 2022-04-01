@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import * as types from '@babel/types';
@@ -27,32 +26,32 @@ import {type Types} from '@ganemone/babel-flow-types';
 
 export const t: Types = types;
 
-export * from './step.js';
-export * from './types.js';
-export * from './utils/create-restore-point.js';
-export * from './utils/ensure-js-imports.js';
-export * from './utils/exec.js';
-export * from './utils/find-files.js';
-export * from './utils/generate-js.js';
-export * from './utils/get-restore-point.js';
-export * from './utils/git-clone.js';
-export * from './utils/git-commit.js';
-export * from './utils/insert-js-after.js';
-export * from './utils/insert-js-before.js';
-export * from './utils/move-file.js';
-export * from './utils/parse-js.js';
-export * from './utils/read-file.js';
-export * from './utils/remove-file.js';
-export * from './utils/remove-js-imports.js';
-export * from './utils/replace-js.js';
-export * from './utils/with-ignore-file.js';
-export * from './utils/with-js-file.js';
-export * from './utils/with-json-file.js';
-export * from './utils/with-text-file.js';
-export * from './utils/write-file.js';
-export * from './utils/with-js-files.js';
-export * from './utils/visit-js-import.js';
-export * from './utils/collapse-imports.js';
-export * from './utils/has-import.js';
+export * from './step';
+export * from './types';
+export * from './utils/create-restore-point';
+export * from './utils/ensure-js-imports';
+export * from './utils/exec';
+export * from './utils/find-files';
+export * from './utils/generate-js';
+export * from './utils/get-restore-point';
+export * from './utils/git-clone';
+export * from './utils/git-commit';
+export * from './utils/insert-js-after';
+export * from './utils/insert-js-before';
+export * from './utils/move-file';
+export * from './utils/parse-js';
+export * from './utils/read-file';
+export * from './utils/remove-file';
+export * from './utils/remove-js-imports';
+export * from './utils/replace-js';
+export * from './utils/with-ignore-file';
+export * from './utils/with-js-file';
+export * from './utils/with-json-file';
+export * from './utils/with-text-file';
+export * from './utils/write-file';
+export * from './utils/with-js-files';
+export * from './utils/visit-js-import';
+export * from './utils/collapse-imports';
+export * from './utils/has-import';
 
-export type * from '@ganemone/babel-flow-types';
+export * from '@ganemone/babel-flow-types';

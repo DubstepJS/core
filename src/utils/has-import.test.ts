@@ -1,6 +1,4 @@
-// @flow
-
-import {parseJs} from './parse-js.js';
+import {parseJs} from './parse-js';
 import {hasImport} from './has-import';
 
 test('hasImport default import works', () => {

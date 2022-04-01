@@ -19,7 +19,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import type {
@@ -62,7 +61,10 @@ export class Stepper {
   }
 }
 
-export const step = (name: string, step: AsyncFunction): Step => ({name, step});
+export const step = (name: string, step: AsyncFunction): Step => ({
+  name,
+  step,
+});
 
 export class StepperError extends Error {
   step: string;

@@ -19,11 +19,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-@flow
 */
 
 import * as git from 'isomorphic-git';
-import {gitCommit} from './git-commit.js';
+import {gitCommit} from './git-commit';
 
 test('gitCommit', async () => {
   const add = jest.spyOn(git, 'add').mockImplementation(async () => {});
