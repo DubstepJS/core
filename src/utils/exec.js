@@ -25,6 +25,6 @@ THE SOFTWARE.
 import execa from 'execa';
 
 export const exec = async (command: string, options: Object = {}) => {
-  const {stdout} = await execa.shell(command, options);
+  const {stdout} = await execa.command(command, options);
   return stdout;
 };

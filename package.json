@@ -45,38 +45,32 @@
     "@babel/traverse": "^7.1.5",
     "@babel/types": "^7.1.5",
     "@ganemone/babel-flow-types": "^2.0.7",
-    "execa": "^1.0.0",
-    "flow-coverage-report": "^0.6.0",
-    "fs-extra": "^7.0.1",
-    "globby": "^8.0.1",
-    "ini": "^1.3.5",
+    "execa": "^5.1.1",
+    "flow-coverage-report": "^0.8.0",
+    "fs-extra": "^10.0.1",
+    "globby": "^11.1.0",
+    "ini": "^2.0.0",
     "isomorphic-git": "^1.10.3",
-    "prettier": "^1.15.1",
-    "recast": "^0.18.5"
+    "prettier": "^2.6.1",
+    "recast": "^0.20.5"
   },
   "devDependencies": {
-    "@babel/cli": "7.1.5",
-    "@babel/core": "7.1.5",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
-    "@babel/plugin-transform-modules-commonjs": "7.1.0",
-    "@babel/preset-flow": "7.0.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "10.0.1",
-    "babel-jest": "23.6.0",
-    "babel-preset-flow": "6.23.0",
-    "eslint": "^5.9.0",
-    "eslint-config-fusion": "^4.0.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-cup": "^2.0.0",
-    "eslint-plugin-flowtype": "^3.2.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.0.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.11.1",
+    "@babel/cli": "7.17.6",
+    "@babel/core": "7.17.8",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.17.3",
+    "@babel/plugin-transform-modules-commonjs": "7.17.7",
+    "@babel/preset-flow": "7.16.7",
+    "babel-jest": "27.5.1",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-jest": "^26.1.3",
+    "eslint-plugin-prettier": "^4.0.0",
     "flow-bin": "^0.95.1",
-    "jest": "23.6.0",
-    "markdown-it": "^8.4.2",
-    "npm-watch": "0.4.0"
+    "jest": "27.5.1",
+    "markdown-it": "^12.3.2",
+    "npm-watch": "0.11.0"
   },
   "babel": {
     "presets": [
@@ -86,26 +80,6 @@
       "@babel/plugin-transform-modules-commonjs",
       "@babel/plugin-proposal-object-rest-spread"
     ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "plugins": [
-      "prettier"
-    ],
-    "extends": [
-      "prettier",
-      "prettier/flowtype"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true,
-          "trailingComma": "all",
-          "bracketSpacing": false
-        }
-      ]
-    }
   },
   "jest": {
     "testRegex": "src/.*?.test.js"
@@ -126,8 +100,5 @@
   "bugs": {
     "url": "https://github.com/DubstepJS/core/issues"
   },
-  "homepage": "https://github.com/DubstepJS/core#readme",
-  "resolutions": {
-    "event-stream": "3.3.5"
-  }
+  "homepage": "https://github.com/DubstepJS/core#readme"
 }

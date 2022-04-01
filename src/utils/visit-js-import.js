@@ -45,9 +45,7 @@ export const visitJsImport = (
   const sourceNode = parseStatement(source);
   if (sourceNode.type !== 'ImportDeclaration') {
     throw new Error(
-      `Expected source with type ImportDeclaration. Received: ${
-        sourceNode.type
-      }`
+      `Expected source with type ImportDeclaration. Received: ${sourceNode.type}`
     );
   }
   const specifiers = sourceNode.specifiers;

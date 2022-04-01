@@ -1,6 +1,11 @@
 module.exports = {
-  extends: ['eslint-config-fusion'],
+  parser: '@babel/eslint-parser',
+  plugins: ['prettier'],
+  extends: ['prettier'],
+  rules: {
+    'prettier/prettier': ['error', require('./.prettierrc')],
+  },
   env: {
-    'node': true 
-  }
+    node: true,
+  },
 };
