@@ -1,11 +1,22 @@
 module.exports = {
-  parser: '@babel/eslint-parser',
-  plugins: ['prettier'],
-  extends: ['prettier'],
-  rules: {
-    'prettier/prettier': ['error', require('./.prettierrc')],
-  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   env: {
     node: true,
   },
+  rules: {
+    'prettier/prettier': ['error', require('./.prettierrc')],
+    '@typescript-eslint/no-empty-function': 0,
+  },
+  overrides: [
+    {
+      files: ['**/*.test.*'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };
