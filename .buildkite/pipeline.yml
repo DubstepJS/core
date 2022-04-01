@@ -20,8 +20,8 @@ steps:
         run: dubstep-core
     agents:
       queue: workers
-  - command: yarn flow
-    name: ':flowtype:'
+  - command: yarn tsc
+    name: ':typescript:'
     plugins:
       'docker-compose':
         run: dubstep-core

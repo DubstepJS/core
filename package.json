@@ -16,8 +16,7 @@
     "test": "jest",
     "lint": "eslint src/",
     "cover": "jest --coverage",
-    "flow": "flow",
-    "prepare": "babel src -d dist -s && cp flow-exports.txt dist/index.js.flow"
+    "prepare": "tsc"
   },
   "watch": {
     "build": {
@@ -31,12 +30,6 @@
         "src"
       ],
       "quiet": true
-    },
-    "flow": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
     }
   },
   "dependencies": {
@@ -44,7 +37,6 @@
     "@babel/template": "^7.1.2",
     "@babel/traverse": "^7.1.5",
     "@babel/types": "^7.1.5",
-    "@ganemone/babel-flow-types": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "execa": "^5.1.1",
