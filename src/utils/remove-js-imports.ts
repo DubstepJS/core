@@ -22,10 +22,11 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js';
-import type {BabelPath, Program} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program} from '@babel/types';
 
 export const removeJsImports = (
-  path: BabelPath<Program>,
+  path: NodePath<Program>,
   code: string
 ): void => {
   parseJs(code).traverse({
@@ -40,8 +41,9 @@ export const removeJsImports = (
                 return s.type === specifier.type;
               });
               if (specifier.type === 'ImportSpecifier') {
+                // @ts-expect-error todo possible bug when imported is StringLiteral
                 const name = specifier.imported.name;
-                // $FlowFixMe
+                // @ts-expect-error todo possible bug when imported is StringLiteral
                 const match = ofSameType.find(s => name === s.imported.name);
                 if (match) remove(path, localName);
                 return !match;

@@ -37,7 +37,7 @@ export class Stepper {
     this.preset = preset;
     this.progress = new Set();
   }
-  async run(options: StepperOptions) {
+  async run(options?: StepperOptions) {
     const from = options && options.from ? options.from : 0;
     const to = options && options.to ? options.to : this.preset.length;
     const slice = this.preset.slice(from, to);

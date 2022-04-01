@@ -22,10 +22,10 @@ THE SOFTWARE.
 */
 
 import traverse from '@babel/traverse';
-import NodePath from '@babel/traverse/lib/path';
+import {NodePath} from '@babel/traverse';
 import {parse} from '@babel/parser';
 import * as recast from 'recast';
-import type {Node, BabelPath, Program} from '@ganemone/babel-flow-types';
+import type {Node, Program} from '@babel/types';
 import {normalizeStatement} from './normalize-statement';
 
 export type ParserOptions =
@@ -35,18 +35,18 @@ export type ParserOptions =
   | undefined
   | null;
 
-export const parseStatement = (code: string, options: ParserOptions): Node => {
+export const parseStatement = (code: string, options?: ParserOptions): Node => {
   return parseJs(normalizeStatement(code), options).node.body[0];
 };
 
 export const parseJs = (
   code: string,
-  options: ParserOptions
-): BabelPath<Program> => {
+  options?: ParserOptions
+): NodePath<Program> => {
   const typeSystem =
     options && options.mode === 'typescript'
-      ? ['typescript']
-      : ['flow', 'flowComments'];
+      ? (['typescript'] as const)
+      : (['flow', 'flowComments'] as const);
 
   const ast = recast.parse(code, {
     parser: {
@@ -85,14 +85,15 @@ export const parseJs = (
     },
   });
 
-  // ensure `path` has correct type to keep flow.js happy
-  // we always override the dummy BabelPath with the `enter` visitor
-  let path = new NodePath();
+  let path: NodePath<Program> | null = null;
   traverse(ast, {
     enter(p) {
       if (p.isProgram()) path = p;
     },
   });
 
+  if (!path) {
+    throw new Error('failed to parse the file');
+  }
   return path;
 };

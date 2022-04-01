@@ -1,19 +1,11 @@
-import type {
-  BabelPath,
-  Program,
-  ImportDeclaration,
-} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program, ImportDeclaration, Statement} from '@babel/types';
 
-export function collapseImports(
-  program: BabelPath<Program>
-): BabelPath<Program> {
-  // $FlowFixMe
-  const importStatements: Array<ImportDeclaration> = program.node.body.filter(
-    item => {
-      return item.type === 'ImportDeclaration';
-    }
-  );
-  const filtered = [];
+export function collapseImports(program: NodePath<Program>): NodePath<Program> {
+  const importStatements = program.node.body.filter(item => {
+    return item.type === 'ImportDeclaration';
+  }) as Array<ImportDeclaration>;
+  const filtered: Statement[] = [];
   for (let index = 0; index < importStatements.length; index++) {
     const statement = importStatements[index];
     const source = statement.source.value;

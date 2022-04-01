@@ -22,15 +22,16 @@ THE SOFTWARE.
 */
 
 import {parseJs} from './parse-js';
-import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program} from '@babel/types';
 import {normalizeStatement} from './normalize-statement';
 
-export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
+export const ensureJsImports = (path: NodePath<Program>, code: string) => {
   code = normalizeStatement(code);
-  const specifierLists = [];
+  const specifierLists: any[] = [];
   parseJs(code).traverse({
     ImportDeclaration(newPath) {
-      const specifierList = {};
+      const specifierList: any = {};
       specifierLists.push(specifierList);
 
       let matched = false;
@@ -58,6 +59,7 @@ export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
               if (specifier.type !== 'ImportSpecifier') return false;
               const found = path.node.specifiers.find(old => {
                 if (old.type !== 'ImportSpecifier') return false;
+                // @ts-expect-error todo possible bug when imported is StringLiteral
                 return old.imported.name === specifier.imported.name;
               });
               if (!found) return true;
@@ -65,6 +67,7 @@ export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
             specifiers.push(...mergeable);
             for (const specifier of specifiers) {
               if (specifier.type === 'ImportSpecifier') {
+                // @ts-expect-error todo possible bug when imported is StringLiteral
                 specifierList[specifier.imported.name] = specifier.local.name;
               }
             }
@@ -73,7 +76,7 @@ export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
       });
 
       if (!matched) {
-        const body: Array<Node> = path.get('body');
+        const body = path.get('body');
         // insert declaration
         const index = body.findIndex(node => {
           return node.type !== 'ImportDeclaration';
@@ -87,6 +90,7 @@ export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
         }
         for (const specifier of specifiers) {
           if (specifier.type === 'ImportSpecifier') {
+            // @ts-expect-error todo possible bug when imported is StringLiteral
             specifierList[specifier.imported.name] = specifier.local.name;
           }
         }

@@ -26,7 +26,7 @@ import {writeFile} from '../utils/write-file';
 
 export type TextFileMutation = (
   data: string
-) => Promise<string | undefined | null>;
+) => Promise<string | undefined | null | void>;
 
 export const withTextFile = async (file: string, fn: TextFileMutation) => {
   const data = await readFile(file).catch(() => '');

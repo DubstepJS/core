@@ -10,6 +10,7 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error', require('./.prettierrc')],
     '@typescript-eslint/no-empty-function': 0,
+    '@typescript-eslint/ban-ts-comment': 1,
   },
   overrides: [
     {

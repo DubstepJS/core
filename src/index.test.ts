@@ -109,7 +109,7 @@ test('API', () => {
 // This tests that we have a documentation section for each exposed api
 test('API documentation', () => {
   const md = markdown();
-  const readme = md.parse(fs.readFileSync('README.md').toString());
+  const readme = md.parse(fs.readFileSync('README.md').toString(), undefined);
   const headers = readme
     .filter((token, index) => {
       return (

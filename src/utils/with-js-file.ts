@@ -25,10 +25,11 @@ import {readFile} from './read-file';
 import {writeFile} from './write-file';
 import {parseJs} from './parse-js';
 import {generateJs} from './generate-js';
-import type {BabelPath, Program} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program} from '@babel/types';
 
 export type JsFileMutation = (
-  a: BabelPath<Program>,
+  a: NodePath<Program>,
   file: string
 ) => Promise<any>;
 

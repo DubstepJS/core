@@ -26,7 +26,7 @@ import {gitCommit} from './git-commit';
 
 test('gitCommit', async () => {
   const add = jest.spyOn(git, 'add').mockImplementation(async () => {});
-  const commit = jest.spyOn(git, 'commit').mockImplementation(async () => {});
+  const commit = jest.spyOn(git, 'commit').mockImplementation(async () => '');
 
   await expect(gitCommit('test commit')).resolves.toEqual(undefined);
   expect(add).toHaveBeenCalled();

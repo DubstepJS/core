@@ -22,9 +22,8 @@ THE SOFTWARE.
 */
 
 import * as types from '@babel/types';
-import {type Types} from '@ganemone/babel-flow-types';
 
-export const t: Types = types;
+export const t = types;
 
 export * from './step';
 export * from './types';
@@ -53,5 +52,3 @@ export * from './utils/with-js-files';
 export * from './utils/visit-js-import';
 export * from './utils/collapse-imports';
 export * from './utils/has-import';
-
-export * from '@ganemone/babel-flow-types';

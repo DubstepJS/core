@@ -26,7 +26,7 @@ import {writeFile} from '../utils/write-file';
 
 export type IgnoreFileMutation = (
   data: Array<string>
-) => Promise<Array<string> | undefined | null>;
+) => Promise<Array<string> | undefined | null | void>;
 
 export const withIgnoreFile = async (file: string, fn: IgnoreFileMutation) => {
   const data = await readFile(file)

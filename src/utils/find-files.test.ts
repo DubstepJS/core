@@ -25,7 +25,7 @@ import {findFiles} from './find-files';
 
 test('findFiles', async () => {
   const files = await findFiles('src/**/*', f => {
-    return /find-files.test.js/.test(f);
+    return /find-files.test.ts/.test(f);
   });
   expect(files.length).toEqual(1);
 });

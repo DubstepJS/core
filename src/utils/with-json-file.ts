@@ -35,6 +35,7 @@ function parseJSON(string, file) {
   try {
     return JSON.parse(string);
   } catch (e) {
+    // @ts-ignore todo: theoretically anything can be thrown, and then this migth be not correct
     e.message = file + '\n' + string + '\n' + e.message;
     throw e;
   }

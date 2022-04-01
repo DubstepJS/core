@@ -1,7 +1,8 @@
 import {visitJsImport} from './visit-js-import';
-import type {BabelPath, Program} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program} from '@babel/types';
 
-export const hasImport = (path: BabelPath<Program>, code: string) => {
+export const hasImport = (path: NodePath<Program>, code: string) => {
   let matched = false;
   visitJsImport(path, code, () => {
     matched = true;

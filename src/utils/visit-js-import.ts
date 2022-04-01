@@ -26,19 +26,15 @@ import {
   isImportNamespaceSpecifier,
   isImportSpecifier,
 } from '@babel/types';
-import type {
-  BabelPath,
-  Program,
-  ImportDeclaration,
-  Identifier,
-} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
+import type {Program, ImportDeclaration, Identifier} from '@babel/types';
 
 export const visitJsImport = (
-  path: BabelPath<Program>,
+  path: NodePath<Program>,
   source: string,
   handler: (
-    path: BabelPath<ImportDeclaration>,
-    refPaths: Array<BabelPath<Identifier>>
+    path: NodePath<ImportDeclaration>,
+    refPaths: Array<NodePath<Identifier>>
   ) => any
 ) => {
   const sourceNode = parseStatement(source);
@@ -56,14 +52,16 @@ export const visitJsImport = (
   const sourceSpecifier = specifiers[0];
   const localName = specifiers[0].local.name;
   path.traverse({
-    ImportDeclaration(ipath: BabelPath<ImportDeclaration>) {
+    ImportDeclaration(ipath: NodePath<ImportDeclaration>) {
       const sourceName = ipath.get('source').node.value;
       if (sourceName !== sourceNode.source.value) {
         return;
       }
       const targetSpecifier = ipath.node.specifiers.find(targetSpecifier => {
         const targetName = targetSpecifier.local.name;
+        // @ts-expect-error accessing possibly not existing property
         const targetKind = targetSpecifier.importKind || ipath.node.importKind;
+        // @ts-expect-error accessing possibly not existing property
         const sourceKind = sourceSpecifier.importKind || sourceNode.importKind;
         if (targetKind !== sourceKind) {
           return false;
@@ -89,6 +87,7 @@ export const visitJsImport = (
         // $FlowFixMe
         const binding = ipath.scope.bindings[targetName];
         const refPaths = binding ? binding.referencePaths : [];
+        // @ts-expect-error todo refPaths according to babel types might be not identifiers
         handler(ipath, refPaths);
       }
     },

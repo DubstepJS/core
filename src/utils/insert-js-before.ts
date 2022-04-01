@@ -22,10 +22,10 @@ THE SOFTWARE.
 */
 
 import {replaceJs} from './replace-js';
-import type {BabelPath} from '@ganemone/babel-flow-types';
+import type {NodePath} from '@babel/traverse';
 
 export const insertJsBefore = (
-  path: BabelPath<any>,
+  path: NodePath<any>,
   target: string,
   code: string,
   wildcards: Array<string> = []
