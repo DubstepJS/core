@@ -24,9 +24,12 @@ THE SOFTWARE.
 import {readFile} from '../utils/read-file';
 import {writeFile} from '../utils/write-file';
 
-export type JsonFileMutation = (data: any) => Promise<any>;
+export type JsonFileMutation<TData> = (data: TData) => Promise<TData> | void;
 
-export const withJsonFile = async (file: string, fn: JsonFileMutation) => {
+export const withJsonFile = async <TData = any>(
+  file: string,
+  fn: JsonFileMutation<TData>
+) => {
   const data = parseJSON(await readFile(file).catch(() => '{}'), file);
   await writeFile(file, JSON.stringify((await fn(data)) || data, null, 2));
 };
