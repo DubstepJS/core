@@ -43,7 +43,7 @@ export class Stepper {
     const to = options && options.to ? options.to : this.preset.length;
     const slice = this.preset.slice(from, to);
     for (let i = 0; i < slice.length; i++) {
-      const {name, step} = this.preset[i];
+      const {name, step} = slice[i];
       await Promise.resolve()
         .then(step)
         .catch(e => {
