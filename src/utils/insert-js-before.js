@@ -31,7 +31,7 @@ export const insertJsBefore = (
   target: string,
   code: string,
   wildcards: Array<string> = [],
-  options: ParserOptions,
+  options: ParserOptions
 ) => {
   return replaceJs(path, target, `${code}\n${target}`, wildcards, options);
 };

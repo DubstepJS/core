@@ -28,7 +28,7 @@ import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 export const removeJsImports = (
   path: BabelPath<Program>,
   code: string,
-  options: ParserOptions,
+  options: ParserOptions
 ): void => {
   parseJs(code, options).traverse({
     ImportDeclaration(obsoletePath) {

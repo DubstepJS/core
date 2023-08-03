@@ -30,7 +30,11 @@ import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
 export type JsFileMutation = (BabelPath<Program>, file: string) => Promise<any>;
 
-export const withJsFile = async (file: string, transform: JsFileMutation, options: ParserOptions) => {
+export const withJsFile = async (
+  file: string,
+  transform: JsFileMutation,
+  options: ParserOptions
+) => {
   const code = await readFile(file).catch(() => '');
   try {
     const program = parseJs(code, options);

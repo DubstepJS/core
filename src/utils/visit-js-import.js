@@ -41,7 +41,7 @@ export const visitJsImport = (
     path: BabelPath<ImportDeclaration>,
     refPaths: Array<BabelPath<Identifier>>
   ) => any,
-  options: ParserOptions,
+  options: ParserOptions
 ) => {
   const sourceNode = parseStatement(source, options);
   if (sourceNode.type !== 'ImportDeclaration') {

@@ -27,7 +27,11 @@ import {findFiles} from './find-files.js';
 import {withJsFile} from './with-js-file.js';
 import type {JsFileMutation} from './with-js-file.js';
 
-export const withJsFiles = async (glob: string, fn: JsFileMutation, options: ParserOptions) => {
+export const withJsFiles = async (
+  glob: string,
+  fn: JsFileMutation,
+  options: ParserOptions
+) => {
   const files = await findFiles(glob);
   for (const file of files) {
     await withJsFile(file, fn, options);

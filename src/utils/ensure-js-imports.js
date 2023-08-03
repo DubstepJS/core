@@ -26,7 +26,11 @@ import {parseJs, type ParserOptions} from './parse-js.js';
 import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
 import {normalizeStatement} from './normalize-statement';
 
-export const ensureJsImports = (path: BabelPath<Program>, code: string, options: ParserOptions) => {
+export const ensureJsImports = (
+  path: BabelPath<Program>,
+  code: string,
+  options: ParserOptions
+) => {
   code = normalizeStatement(code);
   let specifierLists = [];
   parseJs(code, options).traverse({

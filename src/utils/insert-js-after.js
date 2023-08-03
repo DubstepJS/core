@@ -31,7 +31,7 @@ export const insertJsAfter = (
   target: string,
   code: string,
   wildcards: Array<string> = [],
-  options: ParserOptions,
+  options: ParserOptions
 ) => {
   return replaceJs(path, target, `${target}\n${code}`, wildcards, options);
 };

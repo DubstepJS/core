@@ -31,7 +31,7 @@ export const replaceJs = (
   source: string,
   target: string,
   wildcards: Array<string> = [],
-  options: ParserOptions,
+  options: ParserOptions
 ): void => {
   const sourceNode = parseStatement(source);
   const node =
