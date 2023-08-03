@@ -22,14 +22,15 @@ THE SOFTWARE.
 @flow
 */
 
-import {parseJs} from './parse-js.js';
+import {parseJs, type ParserOptions} from './parse-js.js';
 import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
 export const removeJsImports = (
   path: BabelPath<Program>,
-  code: string
+  code: string,
+  options: ParserOptions,
 ): void => {
-  parseJs(code).traverse({
+  parseJs(code, options).traverse({
     ImportDeclaration(obsoletePath) {
       path.traverse({
         ImportDeclaration(targetPath) {

@@ -61,3 +61,10 @@ test('parseJs with class private properties', async () => {
   const generated = generateJs(path);
   expect(generated).toEqual(code);
 });
+
+test('generic is parsed unambiguously', async () => {
+  const code = `export default foo<any, any>()`;
+  const path = parseJs(code);
+  const generated = generateJs(path);
+  expect(generated).toEqual(code);
+});

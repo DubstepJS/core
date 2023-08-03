@@ -23,14 +23,15 @@ THE SOFTWARE.
 */
 
 import template from '@babel/template';
-import {parseStatement} from './parse-js.js';
+import {parseStatement, type ParserOptions} from './parse-js.js';
 import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const replaceJs = (
   path: BabelPath<any>,
   source: string,
   target: string,
-  wildcards: Array<string> = []
+  wildcards: Array<string> = [],
+  options: ParserOptions,
 ): void => {
   const sourceNode = parseStatement(source);
   const node =

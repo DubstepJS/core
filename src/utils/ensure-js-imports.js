@@ -22,14 +22,14 @@ THE SOFTWARE.
 @flow
 */
 
-import {parseJs} from './parse-js.js';
+import {parseJs, type ParserOptions} from './parse-js.js';
 import type {BabelPath, Program, Node} from '@ganemone/babel-flow-types';
 import {normalizeStatement} from './normalize-statement';
 
-export const ensureJsImports = (path: BabelPath<Program>, code: string) => {
+export const ensureJsImports = (path: BabelPath<Program>, code: string, options: ParserOptions) => {
   code = normalizeStatement(code);
   let specifierLists = [];
-  parseJs(code).traverse({
+  parseJs(code, options).traverse({
     ImportDeclaration(newPath) {
       const specifierList = {};
       specifierLists.push(specifierList);

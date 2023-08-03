@@ -181,8 +181,9 @@ If the file does not exist, `fn` is called with an empty array, and the file is 
 ```js
 import {withJsFile} from '@dubstep/core';
 
-type withJsFile = (file: string, fn: JsFileMutation) => Promise<any>;
+type withJsFile = (file: string, fn: JsFileMutation, options: ParserOptions) => Promise<any>;
 type JsFileMutation = (program: BabelPath, file: string) => Promise<any>;
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Opens a file, parses each line into a Babel BabelPath, and calls `fn` with BabelPath. Then, writes the modified AST back into the file.
@@ -196,8 +197,9 @@ See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/mast
 ```js
 import {withJsFiles} from '@dubstep/core';
 
-type withJsFiles = (glob: string, fn: JsFileMutation) => Promise<any>;
+type withJsFiles = (glob: string, fn: JsFileMutation, options: ParserOptions) => Promise<any>;
 type JsFileMutation = (program: BabelPath, file: string) => Promise<any>;
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Runs `withJsFile` only on files that match `glob`.
@@ -249,7 +251,8 @@ Writes `data` to `file`. If the file doesn't exist, it's created (including miss
 ```js
 import {ensureJsImports} from '@dubstep/core';
 
-type ensureJsImports = (path: BabelPath, code: string) => Array<Object<string, string>>;
+type ensureJsImports = (path: BabelPath, code: string, options: ParserOptions) => Array<Object<string, string>>;
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 If an import declaration in `code` is missing in the program, it's added. If it's already present, specifiers are added if not present. Note that the `BabelPath` should be for a Program node, and that it is mutated in-place.
@@ -274,8 +277,10 @@ import {visitJsImport} from '@dubstep/core';
 type visitJsImport = (
   path: BabelPath,
   code: string,
-  handler: (importPath: BabelPath, refPaths: Array<BabelPath>) => void)
+  handler: (importPath: BabelPath, refPaths: Array<BabelPath>) => void),
+  options: ParserOptions,
 : void
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 This function is useful when applying codemods to specific modules which requires modifying the ast surrounding
@@ -301,7 +306,8 @@ visitJsImport(
 ```js
 import {hasImport} from '@dubstep/core';
 
-type hasImport = (path: BabelPath<Program>, code: string) => boolean
+type hasImport = (path: BabelPath<Program>, code: string, options: ParserOptions) => boolean
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Checks if a given program node contains an import matching a string.
@@ -352,7 +358,8 @@ A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 ```js
 import {insertJsAfter} from '@dubstep/core';
 
-type insertJsAfter = (path: BabelPath, target: string, code: string, wildcards: Array<string>) => void
+type insertJsAfter = (path: BabelPath, target: string, code: string, wildcards: Array<string>, options: ParserOptions) => void
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Inserts the statements in `code` after the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node..
@@ -388,7 +395,8 @@ const b = 2;
 ```js
 import {insertJsBefore} from '@dubstep/core';
 
-type insertJsBefore = (path: BabelPath, target: string, code: string, wildcards: Array<string>) => void
+type insertJsBefore = (path: BabelPath, target: string, code: string, wildcards: Array<string>, options: ParserOptions) => void
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Inserts the statements in `code` before the `target` statement, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node..
@@ -428,7 +436,7 @@ type parseJs = (code: string, options: ParserOptions) => BabelPath;
 type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
-Parses a Javascript code string into a `BabelPath`. The default `mode` is `flow`. The parser configuration follows [Postel's Law](https://en.wikipedia.org/wiki/Robustness_principle), i.e. it accepts all syntax options supported by Babel in order to maximize its versatility.
+Parses a Javascript code string into a `BabelPath`. The default `mode` is `typescript`. The parser configuration follows [Postel's Law](https://en.wikipedia.org/wiki/Robustness_principle), i.e. it accepts all syntax options supported by Babel in order to maximize its versatility.
 
 See the [Babel handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md) for more information on `BabelPath`'s API.
 
@@ -448,7 +456,8 @@ Parses a Javascript code statement into a `Node`. Similar to `parseJs` but extra
 ```js
 import {removeJsImports} from '@dubstep/core';
 
-type removeJsImports = (path: BabelPath, code: string) => void
+type removeJsImports = (path: BabelPath, code: string, options: ParserOptions) => void
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Removes the specifiers declared in `code` for the relevant source. If the import declaration no longer has specifiers after that, the declaration is also removed. Note that `path` should be a BabelPath for a Program node.
@@ -462,7 +471,8 @@ A `BabelPath` can be obtained from `withJsFile`, `withJsFiles` or `parseJs`.
 ```js
 import {replaceJs} from '@dubstep/core';
 
-type replaceJs = (path: BabelPath, source: string, target: string, wildcards: Array<string>) => void;
+type replaceJs = (path: BabelPath, source: string, target: string, wildcards: Array<string>, options: ParserOptions) => void;
+type ParserOptions = ?{mode: ?('typescript' | 'flow')};
 ```
 
 Replaces code matching `source` with the code in `target`, transferring expressions contained in the `wildcards` list. Note that `path` should be a BabelPath to a Program node.

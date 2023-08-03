@@ -24,16 +24,16 @@ THE SOFTWARE.
 
 import {readFile} from './read-file.js';
 import {writeFile} from './write-file.js';
-import {parseJs} from './parse-js.js';
+import {parseJs, type ParserOptions} from './parse-js.js';
 import {generateJs} from './generate-js.js';
 import type {BabelPath, Program} from '@ganemone/babel-flow-types';
 
 export type JsFileMutation = (BabelPath<Program>, file: string) => Promise<any>;
 
-export const withJsFile = async (file: string, transform: JsFileMutation) => {
+export const withJsFile = async (file: string, transform: JsFileMutation, options: ParserOptions) => {
   const code = await readFile(file).catch(() => '');
   try {
-    const program = parseJs(code);
+    const program = parseJs(code, options);
     await transform(program, file);
     const generated = generateJs(program);
     await writeFile(file, generated);

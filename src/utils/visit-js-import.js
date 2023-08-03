@@ -21,7 +21,7 @@ THE SOFTWARE.
 
 @flow
 */
-import {parseStatement} from './parse-js';
+import {parseStatement, type ParserOptions} from './parse-js';
 import {
   isImportDefaultSpecifier,
   isImportNamespaceSpecifier,
@@ -40,9 +40,10 @@ export const visitJsImport = (
   handler: (
     path: BabelPath<ImportDeclaration>,
     refPaths: Array<BabelPath<Identifier>>
-  ) => any
+  ) => any,
+  options: ParserOptions,
 ) => {
-  const sourceNode = parseStatement(source);
+  const sourceNode = parseStatement(source, options);
   if (sourceNode.type !== 'ImportDeclaration') {
     throw new Error(
       `Expected source with type ImportDeclaration. Received: ${
