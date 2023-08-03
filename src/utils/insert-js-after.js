@@ -23,13 +23,15 @@ THE SOFTWARE.
 */
 
 import {replaceJs} from './replace-js.js';
+import type {ParserOptions} from './parse-js.js';
 import type {BabelPath} from '@ganemone/babel-flow-types';
 
 export const insertJsAfter = (
   path: BabelPath<any>,
   target: string,
   code: string,
-  wildcards: Array<string> = []
+  wildcards: Array<string> = [],
+  options: ParserOptions
 ) => {
-  return replaceJs(path, target, `${target}\n${code}`, wildcards);
+  return replaceJs(path, target, `${target}\n${code}`, wildcards, options);
 };

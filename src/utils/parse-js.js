@@ -40,9 +40,9 @@ export const parseJs = (
   options: ParserOptions
 ): BabelPath<Program> => {
   const typeSystem =
-    options && options.mode === 'typescript'
-      ? ['typescript']
-      : ['flow', 'flowComments'];
+    options && options.mode === 'flow'
+      ? ['flow', 'flowComments']
+      : ['typescript'];
 
   const ast = recast.parse(code, {
     parser: {
