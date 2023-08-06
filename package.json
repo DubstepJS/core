@@ -75,7 +75,7 @@
     "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.95.1",
     "jest": "23.6.0",
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.0.0",
     "npm-watch": "0.4.0"
   },
   "babel": {
