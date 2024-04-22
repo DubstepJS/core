@@ -1,29 +1,76 @@
+# `yq 'explode(.)' .buildkite/pipeline.yml` to view expanded anchors/aliases
+container:
+  kubernetes: &kubernetes
+    gitEnvFrom:
+      - secretRef:
+          name: oss-github-ssh-credentials
+    sidecars:
+    - image: us-west1-docker.pkg.dev/ci-compute/buildkite-images/buildkite-dind:v1
+      volumeMounts:
+        - mountPath: /var/run/
+          name: docker-sock
+      securityContext:
+        privileged: true
+        allowPrivilegeEscalation: true
+    mirrorVolumeMounts: true # CRITICAL: this must be at the same indentation level as sidecars
+    podSpec: &podSpec
+      containers:
+        - &commandContainer
+          image: us-west1-docker.pkg.dev/ci-compute/buildkite-images/buildkite-command-container:v2
+          command:
+          - |-
+            exit 1
+          volumeMounts:
+            - mountPath: /var/run/
+              name: docker-sock
+          resources:
+            requests:
+              cpu: 7500m
+              memory: 28G
+      volumes:
+      - name: docker-sock
+        emptyDir: {}
+
+agents:
+  queue: buildkite-gcp
+
 steps:
-  - name: ':docker: :package:'
+  - name: ':white_check_mark:'
     plugins:
-      'docker-compose':
-        build: dubstep-core
-    agents:
-      queue: builders
-  - wait
-  - command: yarn test
-    name: ':white_check_mark:'
+      - kubernetes:
+          <<: *kubernetes
+          podSpec:
+            <<: *podSpec
+            containers:
+              - <<: *commandContainer
+                command:
+                - |-
+                   yarn test
+      - docker-compose#v3.0.0:
+          run: dubstep-core
+  - name: ':eslint:'
     plugins:
-      'docker-compose':
-        run: dubstep-core
-    agents:
-      queue: workers
-  - command: yarn lint
-    name: ':eslint:'
+      - kubernetes:
+          <<: *kubernetes
+          podSpec:
+            <<: *podSpec
+            containers:
+              - <<: *commandContainer
+                command:
+                - |-
+                   yarn lint
+      - docker-compose#v3.0.0:
+          run: dubstep-core
+  - name: ':flowtype:'
     plugins:
-      'docker-compose':
-        run: dubstep-core
-    agents:
-      queue: workers
-  - command: yarn flow
-    name: ':flowtype:'
-    plugins:
-      'docker-compose':
-        run: dubstep-core
-    agents:
-      queue: workers
+      - kubernetes:
+          <<: *kubernetes
+          podSpec:
+            <<: *podSpec
+            containers:
+              - <<: *commandContainer
+                command:
+                - |-
+                   yarn flow
+      - docker-compose#v3.0.0:
+          run: dubstep-core
