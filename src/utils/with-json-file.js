@@ -29,7 +29,7 @@ export type JsonFileMutation = (data: any) => Promise<any>;
 
 export const withJsonFile = async (file: string, fn: JsonFileMutation) => {
   const data = parseJSON(await readFile(file).catch(() => '{}'), file);
-  await writeFile(file, JSON.stringify((await fn(data)) || data, null, 2));
+  await writeFile(file, JSON.stringify((await fn(data)) || data, null, 2) + '\n');
 };
 
 function parseJSON(string, file) {
