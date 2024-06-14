@@ -2053,10 +2053,10 @@ flow-annotation-check@1.8.1:
     glob "7.1.1"
     load-pkg "^3.0.1"
 
-flow-bin@^0.95.1:
-  version "0.95.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.95.1.tgz#633113831ccff4b7ee70a2730f63fc43b69ba85f"
-  integrity sha512-06IOC/pqPMNRYtC6AMZEWYR9Fi6UdBC7gImGinPuNUpPZFnP5E9/0cBCl3DWrH4zz/gSM2HdDilU7vPGpYIr2w==
+flow-bin@^0.238.0:
+  version "0.238.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.238.0.tgz#dbe9e270ef4cf6916b0d72b09797cc6e160592cb"
+  integrity sha512-WxQM+46MEP9s795Zqy2MwfP1Sv10nhge+q2Agn8aq9raV5Ly00gbwOgHrqJ41zU4/15Ctmu2HWmRqh1+FQ1gOg==
 
 flow-coverage-report@^0.6.0:
   version "0.6.1"
