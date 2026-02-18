@@ -1,6 +1,6 @@
 {
   "name": "@dubstep/core",
-  "version": "5.0.0",
+  "version": "4.1.0",
   "description": "A step runner for scaffolders",
   "author": "Leo Horie",
   "license": "MIT",
