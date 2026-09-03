@@ -46,7 +46,7 @@ steps:
                 command:
                 - |-
                    yarn test
-      - docker-compose#v3.0.0:
+      - docker-compose#v3.13.0:
           run: dubstep-core
   - name: ':eslint:'
     plugins:
@@ -59,7 +59,7 @@ steps:
                 command:
                 - |-
                    yarn lint
-      - docker-compose#v3.0.0:
+      - docker-compose#v3.13.0:
           run: dubstep-core
   - name: ':flowtype:'
     plugins:
@@ -72,5 +72,5 @@ steps:
                 command:
                 - |-
                    yarn flow
-      - docker-compose#v3.0.0:
+      - docker-compose#v3.13.0:
           run: dubstep-core
